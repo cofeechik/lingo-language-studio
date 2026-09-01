@@ -57,9 +57,42 @@ src/
     LevelScale    A1 → C2 через оси wdth/wght
   sections/
     Header  Hero  Languages  Method  Courses  Teachers  Pricing  Final
-  lib/hooks.ts    useRise, useCycle, useScrollProgress
-  data/site.ts    весь демо-контент
+  pages/
+    Home          лендинг
+    Trial         анкета записи: 7 шагов, по одному вопросу на экран
+  lib/hooks.ts    useEnter, useCycle, useScrollProgress
+  lib/router.ts   мини-роутер на History API + перехват ссылок
+  lib/cta.ts      trialHref() — единая точка для всех CTA
+  data/site.ts    контент лендинга
+  data/trial.ts   шаги анкеты и разбор query-параметров
 ```
+
+## Маршруты
+
+| Путь | Что это |
+| --- | --- |
+| `/lingo-language-studio/` | лендинг |
+| `/lingo-language-studio/trial/` | анкета записи на пробный урок |
+
+Роутер свой, без библиотек: `history.pushState` плюс делегированный обработчик
+кликов. Все CTA остаются обычными `<a href>` — работают в новой вкладке и без JS.
+Якоря вида `#languages` не перехватываются и продолжают скроллить страницу.
+
+Сборка кладёт рядом с `index.html` ещё `trial/index.html` — GitHub Pages
+отдаёт его со статусом 200 (одного `404.html` мало: он вернул бы страницу,
+но с кодом 404). `404.html` остаётся как подстраховка.
+
+### Контекст в анкету
+
+CTA передают выбор пользователя параметрами:
+
+- `?language=english|deutsch|espanol|francais|italiano|portugues` — со строки языка
+- `?course=speak|work|zero|exam|travel|teens` — с ячейки направления
+- `?tariff=solo|duo|group` — с кнопки тарифа
+
+Язык и цель открываются уже отмеченными, тариф попадает в итоговую заявку.
+Отправки на сервер нет: анкета собирает текст и передаёт его в share-ссылку
+Telegram, где человек сам выбирает чат. Ни бэкенда, ни Bot API, ни токенов.
 
 ## Цвет
 
