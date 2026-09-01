@@ -1,5 +1,6 @@
 import { Action } from "../ui/Action";
 import "./Final.css";
+import { trialHref } from "../lib/cta";
 
 export function Final() {
   return (
@@ -12,7 +13,7 @@ export function Final() {
             Одно занятие, чтобы услышать свой уровень и понять, подходит ли вам
             этот способ учиться.
           </p>
-          <Action tone="ink" href="#trial">
+          <Action tone="ink" href={trialHref()}>
             Записаться на пробный урок
           </Action>
         </div>

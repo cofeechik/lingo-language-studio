@@ -37,7 +37,7 @@ export function Action({
   wide = false,
   arrow = true,
   className = "",
-  href = "#trial",
+  href = "#",
   ...rest
 }: ActionProps) {
   const cls = [

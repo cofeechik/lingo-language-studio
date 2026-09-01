@@ -4,6 +4,7 @@ import { LevelScale } from "../ui/LevelScale";
 import { useCycle } from "../lib/hooks";
 import { greetings } from "../data/site";
 import "./Hero.css";
+import { trialHref } from "../lib/cta";
 
 const words = greetings.map((g) => g.word);
 
@@ -41,7 +42,7 @@ export function Hero() {
 
         <div className="hero__foot">
           <div className="hero__actions">
-            <Action href="#trial">Записаться на пробный урок</Action>
+            <Action href={trialHref()}>Записаться на пробный урок</Action>
             <TextLink href="#languages">Посмотреть языки</TextLink>
           </div>
           <p className="hero__note">

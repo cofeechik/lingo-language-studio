@@ -2,6 +2,7 @@ import { TextLink } from "../ui/Action";
 import { useEnter } from "../lib/hooks";
 import { languages } from "../data/site";
 import "./Languages.css";
+import { trialHref } from "../lib/cta";
 
 export function Languages() {
   const sectionRef = useEnter<HTMLElement>();
@@ -44,7 +45,7 @@ export function Languages() {
 
               <a
                 className="langs__link"
-                href="#trial"
+                href={trialHref({ language: l.slug })}
                 aria-label={`${l.ru} язык — записаться на пробный урок`}
               />
             </li>
@@ -52,7 +53,7 @@ export function Languages() {
         </ul>
 
         <p className="langs__foot">
-          <TextLink href="#trial">
+          <TextLink href={trialHref()}>
             Нужен язык, которого здесь нет — напишите студии
           </TextLink>
         </p>

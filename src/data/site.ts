@@ -26,6 +26,8 @@ export const LEVEL_REACHED = 2;
 /* ---------- Languages ---------- */
 export interface LanguageRow {
   id: string;
+  /** Value passed to the trial form as ?language= */
+  slug: string;
   native: string;
   ru: string;
   code: string;
@@ -37,6 +39,7 @@ export interface LanguageRow {
 export const languages: LanguageRow[] = [
   {
     id: "en",
+    slug: "english",
     native: "English",
     ru: "Английский",
     code: "EN",
@@ -47,6 +50,7 @@ export const languages: LanguageRow[] = [
   },
   {
     id: "de",
+    slug: "deutsch",
     native: "Deutsch",
     ru: "Немецкий",
     code: "DE",
@@ -57,6 +61,7 @@ export const languages: LanguageRow[] = [
   },
   {
     id: "es",
+    slug: "espanol",
     native: "Español",
     ru: "Испанский",
     code: "ES",
@@ -67,6 +72,7 @@ export const languages: LanguageRow[] = [
   },
   {
     id: "fr",
+    slug: "francais",
     native: "Français",
     ru: "Французский",
     code: "FR",
@@ -77,6 +83,7 @@ export const languages: LanguageRow[] = [
   },
   {
     id: "it",
+    slug: "italiano",
     native: "Italiano",
     ru: "Итальянский",
     code: "IT",
@@ -87,6 +94,7 @@ export const languages: LanguageRow[] = [
   },
   {
     id: "pt",
+    slug: "portugues",
     native: "Português",
     ru: "Португальский",
     code: "PT",

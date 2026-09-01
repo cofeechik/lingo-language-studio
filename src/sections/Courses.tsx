@@ -1,6 +1,7 @@
 import { Arrow } from "../ui/Action";
 import { courses } from "../data/site";
 import "./Courses.css";
+import { trialHref } from "../lib/cta";
 
 export function Courses() {
   return (
@@ -28,7 +29,7 @@ export function Courses() {
               <Arrow className="cell__go" />
               <a
                 className="cell__link"
-                href="#trial"
+                href={trialHref({ course: c.key })}
                 aria-label={`${c.title} — записаться на пробный урок`}
               />
             </article>

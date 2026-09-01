@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Action } from "../ui/Action";
 import "./Header.css";
+import { trialHref } from "../lib/cta";
 
 const NAV = [
   { label: "Языки", href: "#languages" },
@@ -51,7 +52,7 @@ export function Header() {
         </nav>
 
         <div className="hdr__right">
-          <Action size="sm" href="#trial" arrow={false}>
+          <Action size="sm" href={trialHref()} arrow={false}>
             Пробный урок
           </Action>
           <button
@@ -81,7 +82,7 @@ export function Header() {
           </a>
         ))}
         <div className="hdr__menu-foot">
-          <Action href="#trial" wide onClick={() => setOpen(false)}>
+          <Action href={trialHref()} wide onClick={() => setOpen(false)}>
             Записаться на пробный урок
           </Action>
         </div>

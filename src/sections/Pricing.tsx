@@ -1,6 +1,7 @@
 import { Action, TextLink } from "../ui/Action";
 import { plans } from "../data/site";
 import "./Pricing.css";
+import { trialHref } from "../lib/cta";
 
 export function Pricing() {
   return (
@@ -43,9 +44,9 @@ export function Pricing() {
 
               <div className="plan__cta">
                 {p.featured ? (
-                  <Action href="#trial">Записаться</Action>
+                  <Action href={trialHref({ tariff: p.key })}>Записаться</Action>
                 ) : (
-                  <TextLink href="#trial">Записаться</TextLink>
+                  <TextLink href={trialHref({ tariff: p.key })}>Записаться</TextLink>
                 )}
               </div>
             </article>
