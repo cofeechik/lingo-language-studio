@@ -1,0 +1,382 @@
+/* ============================================================
+   LINGO — Languages
+   Asymmetric grid: one wide lead card + five upright cards.
+   Cards are not a single repeated template — the lead card is
+   horizontal, the rest are vertical.
+   ============================================================ */
+
+.languages {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+/* ---------- Section head ---------- */
+.languages__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.78fr);
+  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3.5vw, 4.5rem);
+}
+
+.languages__index {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.languages__index::after {
+  content: "";
+  flex: 1;
+  max-width: 72px;
+  height: 1px;
+  background-color: var(--c-terracotta);
+  opacity: 0.5;
+}
+
+.languages__title {
+  text-wrap: balance;
+}
+
+.languages__title em {
+  font-style: italic;
+  color: var(--c-sage);
+}
+
+.languages__aside {
+  padding-bottom: var(--sp-2);
+}
+
+.languages__aside p {
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-4);
+  max-width: 42ch;
+}
+
+/* ---------- Grid ---------- */
+.languages__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 0.5rem + 1.4vw, 1.75rem);
+}
+
+/* ============================================================
+   Card
+   ============================================================ */
+.lang-card {
+  --tone: var(--c-terracotta);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background-color: var(--c-cream-soft);
+  border: 1px solid var(--c-ink-14);
+  isolation: isolate;
+  transition: transform var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+.lang-card[data-tone="sage"] {
+  --tone: var(--c-sage);
+}
+.lang-card[data-tone="ochre"] {
+  --tone: var(--c-ochre);
+}
+.lang-card[data-tone="forest"] {
+  --tone: var(--c-forest);
+}
+
+.lang-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--tone);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Focus ring for the whole card when the overlay link is focused */
+.lang-card:focus-within {
+  border-color: var(--tone);
+}
+
+/* ---------- Media ---------- */
+.lang-card__media {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--c-forest);
+  aspect-ratio: 4 / 3;
+}
+
+.lang-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.6) sepia(0.24) contrast(1.04);
+  transform: scale(1.02);
+  transition: transform 700ms var(--ease-out), filter 700ms var(--ease-out);
+}
+
+.lang-card:hover .lang-card__img {
+  transform: scale(1.07);
+  filter: grayscale(0.32) sepia(0.14) contrast(1.04);
+}
+
+.lang-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    170deg,
+    rgba(30, 42, 31, 0.1) 0%,
+    rgba(30, 42, 31, 0.62) 100%
+  );
+  pointer-events: none;
+}
+
+/* Native language name sits on the photo — the card's anchor */
+.lang-card__native {
+  position: absolute;
+  z-index: 2;
+  left: var(--sp-5);
+  bottom: var(--sp-4);
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
+  line-height: 1;
+  letter-spacing: var(--ls-heading);
+  color: var(--c-cream);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.lang-card:hover .lang-card__native {
+  transform: translateY(-3px);
+}
+
+.lang-card__code {
+  position: absolute;
+  z-index: 2;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  padding: 5px 9px;
+  border-radius: var(--r-xs);
+  background-color: var(--tone);
+  color: var(--c-cream-soft);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-label);
+}
+
+.lang-card[data-tone="ochre"] .lang-card__code {
+  color: var(--c-ink);
+}
+
+/* ---------- Body ---------- */
+.lang-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+}
+
+.lang-card__name {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+}
+
+.lang-card__note {
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.lang-card__focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.lang-card__chip {
+  padding: 5px 11px;
+  border: 1px solid var(--c-ink-14);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  transition: border-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.lang-card:hover .lang-card__chip {
+  border-color: color-mix(in srgb, var(--tone) 45%, transparent);
+  color: var(--text-primary);
+}
+
+.lang-card__foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+}
+
+.lang-card__foot svg {
+  color: var(--tone);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.lang-card:hover .lang-card__foot svg {
+  transform: translateX(4px);
+}
+
+/* Full-card link overlay */
+.lang-card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: var(--r-lg);
+}
+
+/* ============================================================
+   Lead card — horizontal, spans two columns
+   ============================================================ */
+.lang-card--wide {
+  grid-column: span 2;
+  flex-direction: row;
+}
+
+.lang-card--wide .lang-card__media {
+  aspect-ratio: auto;
+  flex: 0 0 46%;
+}
+
+.lang-card--wide .lang-card__body {
+  padding: clamp(1.5rem, 1rem + 1.6vw, 2.25rem);
+  gap: var(--sp-4);
+}
+
+.lang-card--wide .lang-card__headline {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: var(--ls-heading);
+}
+
+.lang-card--wide .lang-card__note {
+  font-size: var(--fs-body);
+}
+
+/* chips settle above the footer rule instead of floating mid-card */
+.lang-card--wide .lang-card__focus {
+  margin-top: auto;
+}
+
+/* ============================================================
+   Trailing note tile — breaks the card rhythm on purpose
+   ============================================================ */
+.languages__tile {
+  /* fills the row left over by the six cards instead of leaving a hole */
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(1.25rem, 0.8rem + 1.6vw, 2.5rem);
+  row-gap: var(--sp-5);
+  padding: clamp(1.5rem, 1rem + 1.6vw, 2.25rem);
+  border-radius: var(--r-lg);
+  background-color: var(--c-forest);
+  color: var(--c-on-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.languages__tile-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+  line-height: 1.15;
+  letter-spacing: var(--ls-heading);
+}
+
+.languages__tile-text {
+  font-size: var(--fs-sm);
+  color: var(--c-on-dark-60);
+  line-height: 1.55;
+}
+
+.languages__tile-mark {
+  grid-row: 1 / span 2;
+  align-self: start;
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--c-ochre);
+}
+
+.languages__tile-title {
+  margin-bottom: var(--sp-3);
+}
+
+.languages__tile .link-action {
+  justify-self: start;
+}
+
+/* ------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .languages__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: var(--sp-5);
+  }
+
+  .languages__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lang-card--wide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .lang-card--wide {
+    flex-direction: column;
+  }
+
+  .lang-card--wide .lang-card__media {
+    flex: none;
+    aspect-ratio: 16 / 9;
+  }
+
+  .lang-card--wide .lang-card__note {
+    flex: 1;
+  }
+}
+
+@media (max-width: 620px) {
+  .languages__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lang-card--wide,
+  .languages__tile {
+    grid-column: span 1;
+  }
+
+  .languages__tile {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .languages__tile-mark {
+    grid-row: auto;
+  }
+}
