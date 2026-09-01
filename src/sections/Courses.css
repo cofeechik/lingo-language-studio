@@ -23,7 +23,8 @@
   flex-direction: column;
   gap: var(--sp-4);
   min-height: clamp(190px, 17vw, 250px);
-  padding: clamp(1.5rem, 2.6vw, 2.75rem) clamp(1.25rem, 2.4vw, 2.5rem);
+  /* inline padding matches the shell so cells sit on the page grid */
+  padding: clamp(1.5rem, 2.6vw, 2.75rem) var(--pad);
   transition: background var(--t) var(--ease), color var(--t) var(--ease);
 }
 

@@ -33,13 +33,13 @@
 
 /* The outgoing word clears out first so the two never read as one mess */
 .kw__layer--in .kw__ch {
-  animation: kw-in 560ms var(--ease-type) both;
-  animation-delay: calc(250ms + var(--i) * 30ms);
+  animation: kw-in 520ms var(--ease-type) both;
+  animation-delay: calc(150ms + var(--i) * 28ms);
 }
 
 .kw__layer--out .kw__ch {
-  animation: kw-out 300ms var(--ease-type) both;
-  animation-delay: calc(var(--i) * 16ms);
+  animation: kw-out 260ms var(--ease-type) both;
+  animation-delay: calc(var(--i) * 14ms);
 }
 
 @keyframes kw-in {

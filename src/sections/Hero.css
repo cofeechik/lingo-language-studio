@@ -7,7 +7,6 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 4rem));
   padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
   overflow: hidden;
@@ -69,7 +68,7 @@
   text-align: right;
   min-width: 8ch;
   /* arrives with the incoming letters instead of snapping ahead of them */
-  animation: hero-label 420ms var(--ease) 250ms both;
+  animation: hero-label 420ms var(--ease) 150ms both;
 }
 
 @keyframes hero-label {
@@ -108,7 +107,6 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
   gap: var(--sp-6) clamp(2rem, 5vw, 5rem);
   align-items: end;
-  margin-top: auto;
   padding-top: clamp(1.5rem, 3vw, 3rem);
 }
 
@@ -127,8 +125,9 @@
   justify-self: end;
 }
 
-/* ---------- Level scale pinned to the bottom of the screen ---------- */
+/* ---------- Level scale rides the bottom edge of the first screen ---------- */
 .hero__scale {
+  margin-top: auto;
   padding-top: clamp(1.5rem, 3vw, 2.75rem);
 }
 

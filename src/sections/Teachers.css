@@ -92,7 +92,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 370px) {
   .teachers__sheet {
     grid-template-columns: minmax(0, 1fr);
   }

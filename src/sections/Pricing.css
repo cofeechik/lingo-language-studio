@@ -106,7 +106,7 @@
 
 .pricing__note {
   margin-top: clamp(1.75rem, 3vw, 2.5rem);
-  color: var(--fg-faint);
+  color: var(--fg-dim);
   font-size: var(--fs-xs);
   max-width: 68ch;
 }
