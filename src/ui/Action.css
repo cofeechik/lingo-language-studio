@@ -1,0 +1,135 @@
+/* ============================================================
+   Actions — flat rectangles, no radius, no shadow.
+   The primary button hovers with a letter roll, same motion
+   language as the kinetic hero word.
+   ============================================================ */
+
+.action {
+  --pad-y: 1.125rem;
+  --pad-x: 2rem;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pad-y) var(--pad-x);
+  overflow: hidden;
+
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+
+  background: var(--accent);
+  color: var(--ink);
+  transition: background var(--t-fast) var(--ease);
+}
+
+.action:hover {
+  background: var(--accent-press);
+}
+
+.action:active {
+  transform: translateY(1px);
+}
+
+/* Two stacked labels; on hover the pair slides up one line */
+.action__roll {
+  display: grid;
+  overflow: hidden;
+  height: 1em;
+}
+
+.action__roll span {
+  grid-area: 1 / 1;
+  transition: transform var(--t) var(--ease-type);
+}
+
+.action__roll span:first-child {
+  transform: translateY(0);
+}
+
+.action__roll span:last-child {
+  transform: translateY(1.6em);
+}
+
+.action:hover .action__roll span:first-child {
+  transform: translateY(-1.6em);
+}
+
+.action:hover .action__roll span:last-child {
+  transform: translateY(0);
+}
+
+/* Inverted variant for the accent-coloured final section */
+.action--ink {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+.action--ink:hover {
+  background: #000;
+}
+
+.action--wide {
+  width: 100%;
+}
+
+.action--sm {
+  --pad-y: 0.8125rem;
+  --pad-x: 1.25rem;
+  font-size: var(--fs-xs);
+}
+
+/* ------------------------------------------------------------
+   Secondary text link
+   ------------------------------------------------------------ */
+.tlink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  position: relative;
+  padding-block: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--fg);
+  transition: color var(--t-fast) var(--ease);
+}
+
+.tlink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: right;
+  transition: transform var(--t) var(--ease-type);
+}
+
+.tlink:hover {
+  color: var(--accent);
+}
+
+.tlink:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+.tlink__arrow {
+  transition: transform var(--t) var(--ease);
+}
+
+.tlink:hover .tlink__arrow {
+  transform: translateX(5px);
+}
+
+@media (max-width: 560px) {
+  .action {
+    --pad-x: 1.25rem;
+  }
+}

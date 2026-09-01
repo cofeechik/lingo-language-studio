@@ -1,0 +1,137 @@
+/* ============================================================
+   Languages — a typographic index, not a grid of cards.
+   Each row is one word; hovering opens the width axis and
+   brings up an unfiltered photograph under the cursor.
+   ============================================================ */
+
+.langs {
+  padding-block: var(--section-y);
+}
+
+.langs__list {
+  border-top: 1px solid var(--hair);
+}
+
+.langs__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--sp-5);
+  padding: clamp(1rem, 2.2vw, 1.75rem) 0;
+  border-bottom: 1px solid var(--hair);
+  transition: padding-left var(--t) var(--ease-type);
+}
+
+.langs__row:hover {
+  padding-left: clamp(0.75rem, 2vw, 2rem);
+}
+
+.langs__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-big);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg);
+  font-variation-settings: "wdth" 88, "wght" 500;
+  transition: font-variation-settings var(--t-slow) var(--ease-type),
+    color var(--t) var(--ease);
+}
+
+.langs__row:hover .langs__name,
+.langs__row:focus-within .langs__name {
+  color: var(--accent);
+  font-variation-settings: "wdth" 118, "wght" 800;
+}
+
+.langs__hello {
+  font-family: var(--font-display);
+  font-size: clamp(0.9375rem, 1.3vw, 1.25rem);
+  font-weight: 500;
+  color: var(--fg-dim);
+  margin-left: var(--sp-5);
+  transition: color var(--t) var(--ease), opacity var(--t) var(--ease);
+}
+
+.langs__row:hover .langs__hello {
+  color: var(--fg-dim);
+}
+
+.langs__aside {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1rem, 3vw, 3rem);
+  color: var(--fg-dim);
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+}
+
+.langs__link {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---------- Photograph that follows the cursor ---------- */
+.langs__peek {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  width: clamp(170px, 15vw, 250px);
+  aspect-ratio: 4 / 5;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate3d(var(--x, 0), var(--y, 0), 0) translate(-50%, -50%)
+    scale(0.92);
+  transition: opacity var(--t) var(--ease), transform var(--t) var(--ease);
+}
+
+.langs__peek[data-on="true"] {
+  opacity: 1;
+  transform: translate3d(var(--x, 0), var(--y, 0), 0) translate(-50%, -50%)
+    scale(1);
+}
+
+.langs__peek img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.langs__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-5);
+  padding-top: clamp(1.75rem, 3vw, 3rem);
+  color: var(--fg-dim);
+  font-size: var(--fs-sm);
+}
+
+/* ------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 860px) {
+  .langs__peek {
+    display: none;
+  }
+
+  .langs__row {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: var(--sp-2);
+  }
+
+  .langs__aside {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 560px) {
+  .langs__hello {
+    display: none;
+  }
+}

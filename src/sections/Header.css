@@ -1,0 +1,154 @@
+/* ============================================================
+   Header — transparent over the hero, solid once you scroll.
+   ============================================================ */
+
+.hdr {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-header);
+  transition: background var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+
+.hdr--stuck {
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 -1px 0 var(--hair-ink);
+}
+
+.hdr__bar {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+}
+
+/* ---------- Wordmark: width axis tightens on hover ---------- */
+.hdr__mark {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--on-ink);
+  font-variation-settings: "wdth" 100;
+  transition: font-variation-settings var(--t) var(--ease-type);
+}
+
+.hdr__mark:hover {
+  font-variation-settings: "wdth" 72;
+}
+
+.hdr__mark i {
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* ---------- Nav ---------- */
+.hdr__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 0.4rem + 2vw, 2.5rem);
+}
+
+.hdr__link {
+  font-size: var(--fs-sm);
+  color: var(--on-ink-dim);
+  transition: color var(--t-fast) var(--ease);
+}
+
+.hdr__link:hover {
+  color: var(--on-ink);
+}
+
+.hdr__right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+
+/* ---------- Burger ---------- */
+.hdr__burger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  margin-right: -8px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.hdr__burger span {
+  width: 22px;
+  height: 1.5px;
+  background: var(--on-ink);
+  transition: transform var(--t) var(--ease), opacity var(--t-fast) var(--ease);
+}
+
+.hdr__burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.hdr__burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.hdr__burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ---------- Mobile menu ---------- */
+.hdr__menu {
+  display: none;
+  position: fixed;
+  inset: var(--header-h) 0 0 0;
+  background: var(--ink);
+  padding: var(--sp-6) var(--pad) var(--sp-8);
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.hdr__menu[data-open="true"] {
+  display: flex;
+}
+
+.hdr__menu-link {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 9vw, 3rem);
+  font-weight: 700;
+  letter-spacing: var(--ls-tight);
+  line-height: 1;
+  padding-block: clamp(0.75rem, 2.4vw, 1.125rem);
+  border-bottom: 1px solid var(--hair-ink);
+  font-variation-settings: "wdth" 100;
+  transition: font-variation-settings var(--t) var(--ease-type),
+    color var(--t-fast) var(--ease);
+}
+
+.hdr__menu-link:active {
+  color: var(--accent);
+  font-variation-settings: "wdth" 80;
+}
+
+.hdr__menu-foot {
+  margin-top: auto;
+  padding-top: var(--sp-7);
+}
+
+@media (max-width: 960px) {
+  .hdr__nav {
+    display: none;
+  }
+
+  .hdr__burger {
+    display: flex;
+  }
+}
+
+@media (max-width: 560px) {
+  .hdr__right .action {
+    display: none;
+  }
+}

@@ -1,0 +1,135 @@
+/* ============================================================
+   Pricing — three columns split by hairlines. No boxes, no
+   badges: the chosen plan is marked by the accent alone.
+   ============================================================ */
+
+.pricing {
+  padding-block: var(--section-y);
+}
+
+.pricing__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--hair);
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.75rem, 3vw, 3rem) clamp(1.25rem, 2.4vw, 2.5rem)
+    clamp(1.5rem, 2.4vw, 2.5rem);
+  border-left: 1px solid var(--hair);
+}
+
+.plan:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.plan:last-child {
+  padding-right: 0;
+}
+
+.plan__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.4vw, 1.375rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.plan--featured .plan__name {
+  color: var(--accent);
+}
+
+.plan__line {
+  color: var(--fg-dim);
+  font-size: var(--fs-sm);
+  margin-top: var(--sp-2);
+}
+
+.plan__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.plan__figure {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 5vw, 4.75rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variation-settings: "wdth" 108, "wght" 800;
+}
+
+.plan--featured .plan__figure {
+  color: var(--accent);
+}
+
+.plan__unit {
+  font-size: var(--fs-sm);
+  color: var(--fg-dim);
+  white-space: nowrap;
+}
+
+.plan__items {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--hair);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--fg-dim);
+}
+
+.plan__items li {
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.plan__items li::before {
+  content: "";
+  flex: none;
+  width: 12px;
+  height: 1px;
+  margin-top: 0.72em;
+  background: var(--accent);
+}
+
+.plan__cta {
+  margin-top: auto;
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.pricing__note {
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  color: var(--fg-faint);
+  font-size: var(--fs-xs);
+  max-width: 68ch;
+}
+
+/* ------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .pricing__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan {
+    border-left: 0;
+    border-bottom: 1px solid var(--hair);
+    padding-inline: 0;
+  }
+
+  .plan:last-child {
+    border-bottom: 0;
+  }
+
+  .plan__price {
+    margin-top: var(--sp-5);
+  }
+}

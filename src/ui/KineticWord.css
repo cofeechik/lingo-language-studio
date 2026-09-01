@@ -1,0 +1,77 @@
+/* ============================================================
+   Kinetic word — the brand's core device.
+   One word rolls out, the next rolls in, letter by letter,
+   settling from a condensed to a normal width axis.
+   ============================================================ */
+
+.kw {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding-block: 0.06em 0.1em;
+  vertical-align: top;
+}
+
+/* Keeps the box the size of the longest word so nothing reflows */
+.kw__ghost {
+  visibility: hidden;
+  pointer-events: none;
+  display: block;
+}
+
+.kw__layer {
+  position: absolute;
+  inset: 0.06em auto auto 0;
+  display: flex;
+  white-space: pre;
+}
+
+.kw__ch {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* The outgoing word clears out first so the two never read as one mess */
+.kw__layer--in .kw__ch {
+  animation: kw-in 560ms var(--ease-type) both;
+  animation-delay: calc(250ms + var(--i) * 30ms);
+}
+
+.kw__layer--out .kw__ch {
+  animation: kw-out 300ms var(--ease-type) both;
+  animation-delay: calc(var(--i) * 16ms);
+}
+
+@keyframes kw-in {
+  from {
+    transform: translateY(0.92em);
+    opacity: 0;
+    font-variation-settings: "wdth" 68, "wght" 800;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    font-variation-settings: "wdth" 100, "wght" 800;
+  }
+}
+
+@keyframes kw-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-0.92em);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kw__layer--out {
+    display: none;
+  }
+
+  .kw__layer--in .kw__ch {
+    animation: none;
+  }
+}

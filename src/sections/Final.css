@@ -1,0 +1,67 @@
+/* ============================================================
+   Final — the greeting loop closes on a full accent surface.
+   ============================================================ */
+
+.final {
+  padding-top: var(--section-y);
+}
+
+.final__word {
+  padding-block: clamp(1rem, 2vw, 2rem) clamp(1.5rem, 3vw, 3rem);
+}
+
+.final__kinetic {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 9vw, 9rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  color: var(--ink);
+  font-variation-settings: "wdth" 100, "wght" 800;
+}
+
+.final__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5) clamp(2rem, 5vw, 5rem);
+  padding-bottom: clamp(3rem, 6vw, 6rem);
+}
+
+.final__text {
+  font-size: var(--fs-lead);
+  line-height: 1.45;
+  max-width: 34ch;
+  color: var(--fg-dim);
+}
+
+/* ---------- Footer strip ---------- */
+.final__footer {
+  border-top: 1px solid var(--hair);
+}
+
+.final__footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4) var(--sp-6);
+  padding-block: clamp(1.25rem, 2.4vw, 1.75rem);
+  font-size: var(--fs-xs);
+  color: var(--fg-dim);
+}
+
+.final__mark {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .final__foot .action {
+    width: 100%;
+  }
+}

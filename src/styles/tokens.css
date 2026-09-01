@@ -1,121 +1,97 @@
 /* ============================================================
-   LINGO — Design System / Tokens
-   Visual direction: Confident Editorial EdTech
+   LINGO — Design tokens
+   Art direction: Living Alphabet — kinetic variable typography
    ============================================================ */
 
 :root {
-  /* ---------- Brand palette ---------- */
-  --c-cream: #f7f3ec;
-  --c-ink: #1b1812;
-  --c-terracotta: #c1552c;
-  --c-sage: #5c6b4f;
-  --c-forest: #1e2a1f;
-  --c-ochre: #e3a73c;
+  /* ---------- Colour: one base, one accent, neutrals ---------- */
+  --ink: #14170f; /* base — warm near-black */
+  --ink-raised: #1b1f16;
+  --paper: #f2efe6; /* neutral light surface */
+  --paper-raised: #e8e4d8;
+  --accent: #ff5b2e; /* the single bright accent */
+  --accent-press: #e34817;
 
-  /* ---------- Derived surfaces ---------- */
-  --c-cream-deep: #efe8dc;
-  --c-cream-soft: #fbf8f3;
-  --c-ink-70: rgba(27, 24, 18, 0.7);
-  --c-ink-55: rgba(27, 24, 18, 0.55);
-  --c-ink-35: rgba(27, 24, 18, 0.35);
-  --c-ink-14: rgba(27, 24, 18, 0.14);
-  --c-ink-08: rgba(27, 24, 18, 0.08);
-  --c-terracotta-deep: #a5451f;
-  --c-on-dark: #ece6da;
-  --c-on-dark-60: rgba(236, 230, 218, 0.6);
-  --c-on-dark-20: rgba(236, 230, 218, 0.2);
+  /* On-dark */
+  --on-ink: #edeae0;
+  --on-ink-dim: rgba(237, 234, 224, 0.58);
+  --on-ink-faint: rgba(237, 234, 224, 0.3);
+  --hair-ink: rgba(237, 234, 224, 0.16);
 
-  /* ---------- Semantic ---------- */
-  --bg-page: var(--c-cream);
-  --bg-raised: var(--c-cream-soft);
-  --bg-dark: var(--c-forest);
-  --text-primary: var(--c-ink);
-  --text-secondary: var(--c-ink-70);
-  --text-muted: var(--c-ink-55);
-  --rule: var(--c-ink-14);
-  --accent: var(--c-terracotta);
+  /* On-light */
+  --on-paper: #14170f;
+  --on-paper-dim: rgba(20, 23, 15, 0.62);
+  --on-paper-faint: rgba(20, 23, 15, 0.34);
+  --hair-paper: rgba(20, 23, 15, 0.16);
 
-  /* ---------- Typography ---------- */
-  --font-serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia,
-    serif;
-  --font-sans: "Inter", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+  /* Per-surface aliases, flipped by [data-surface] */
+  --fg: var(--on-ink);
+  --fg-dim: var(--on-ink-dim);
+  --fg-faint: var(--on-ink-faint);
+  --hair: var(--hair-ink);
+  --bg: var(--ink);
 
-  /* Fluid display scale — clamp(min, preferred, max) */
-  --fs-display: clamp(2.625rem, 1.45rem + 2.9vw, 5rem); /* hero headline */
-  --fs-h1: clamp(2.25rem, 1.4rem + 3.2vw, 4rem);
-  --fs-h2: clamp(1.875rem, 1.25rem + 2.4vw, 3.25rem);
-  --fs-h3: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
-  --fs-lead: clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);
+  /* ---------- Type ---------- */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-ui: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+
+  /* Kinetic hero word — the largest thing on the site */
+  --fs-kinetic: clamp(3.75rem, 13.5vw, 14rem);
+  --fs-mega: clamp(2rem, 5vw, 5.25rem); /* section statements */
+  --fs-big: clamp(1.75rem, 4vw, 4rem); /* list rows */
+  --fs-h2: clamp(1.75rem, 3vw, 3rem);
+  --fs-lead: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
   --fs-body: 1rem;
-  --fs-sm: 0.9375rem;
-  --fs-xs: 0.8125rem;
-  --fs-label: 0.6875rem; /* uppercase eyebrow / meta */
+  --fs-sm: 0.875rem;
+  --fs-xs: 0.75rem;
+  --fs-label: 0.6875rem;
 
-  --lh-tight: 0.94;
-  --lh-snug: 1.1;
-  --lh-normal: 1.5;
-  --lh-relaxed: 1.65;
+  --ls-tight: -0.035em;
+  --ls-label: 0.16em;
 
-  --ls-display: -0.03em;
-  --ls-heading: -0.02em;
-  --ls-label: 0.14em;
-
-  --fw-regular: 400;
-  --fw-medium: 500;
-  --fw-semibold: 600;
-
-  /* ---------- Spacing (4px base) ---------- */
+  /* ---------- Space ---------- */
   --sp-1: 0.25rem;
   --sp-2: 0.5rem;
   --sp-3: 0.75rem;
   --sp-4: 1rem;
   --sp-5: 1.5rem;
   --sp-6: 2rem;
-  --sp-7: 2.5rem;
-  --sp-8: 3rem;
-  --sp-9: 4rem;
-  --sp-10: 5rem;
-  --sp-11: 6.5rem;
-  --sp-12: 8rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+  --sp-10: 8rem;
 
-  /* Vertical rhythm between sections (fluid) */
-  --section-y: clamp(4.5rem, 2rem + 8vw, 9rem);
+  --section-y: clamp(4.5rem, 2rem + 8vw, 10rem);
 
   /* ---------- Layout ---------- */
-  --shell-max: 1360px;
-  --shell-pad: clamp(1.25rem, 0.6rem + 3vw, 4rem);
-  --header-h: 76px;
-
-  /* ---------- Radii — restrained, editorial ---------- */
-  --r-xs: 2px;
-  --r-sm: 4px;
-  --r-md: 8px;
-  --r-lg: 14px;
-  --r-pill: 999px;
+  --shell: 1440px;
+  --pad: clamp(1.25rem, 0.5rem + 3.4vw, 4.5rem);
+  --header-h: 72px;
 
   /* ---------- Motion ---------- */
-  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-fast: 160ms;
-  --dur-base: 280ms;
-  --dur-slow: 620ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --ease-type: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 180ms;
+  --t: 420ms;
+  --t-slow: 780ms;
 
-  /* ---------- Elevation — subtle, warm, never neon ---------- */
-  --shadow-sm: 0 1px 2px rgba(27, 24, 18, 0.06);
-  --shadow-md: 0 10px 30px -18px rgba(27, 24, 18, 0.45);
-  --shadow-lg: 0 28px 60px -34px rgba(27, 24, 18, 0.55);
-
-  --z-header: 100;
+  --z-header: 90;
+  --z-cursor: 120;
 }
 
-/* ============================================================
-   Breakpoints (documentation — CSS custom props can't be used
-   in media queries, so these values are the single source of
-   truth referenced across component stylesheets)
+/* Light surfaces flip the neutral aliases — no per-component overrides */
+[data-surface="paper"] {
+  --fg: var(--on-paper);
+  --fg-dim: var(--on-paper-dim);
+  --fg-faint: var(--on-paper-faint);
+  --hair: var(--hair-paper);
+  --bg: var(--paper);
+}
 
-     --bp-sm : 480px   small phone → phone
-     --bp-md : 768px   phone → tablet
-     --bp-lg : 1024px  tablet → small laptop
-     --bp-xl : 1280px  laptop → desktop
-   ============================================================ */
+[data-surface="accent"] {
+  --fg: var(--ink);
+  --fg-dim: rgba(20, 23, 15, 0.68);
+  --fg-faint: rgba(20, 23, 15, 0.4);
+  --hair: rgba(20, 23, 15, 0.24);
+  --bg: var(--accent);
+}

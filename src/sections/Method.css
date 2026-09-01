@@ -1,0 +1,109 @@
+/* ============================================================
+   Method — three moments on one axis. Light surface, no boxes:
+   the rail fills as you scroll and the step words open up.
+   ============================================================ */
+
+.method {
+  padding-block: var(--section-y);
+}
+
+/* ---------- Axis ---------- */
+.method__axis {
+  position: relative;
+  height: 1px;
+  background: var(--hair);
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+}
+
+.method__axis-fill {
+  position: absolute;
+  inset: -1px auto auto 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+}
+
+.method__tick {
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 9px;
+  background: var(--hair);
+  transition: background var(--t) var(--ease);
+}
+
+.method__tick[data-passed="true"] {
+  background: var(--accent);
+}
+
+/* ---------- Steps ---------- */
+.method__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: start;
+}
+
+/* Staircase: each column drops a little further than the last */
+.method__step {
+  padding-top: calc(var(--drop, 0) * clamp(1.5rem, 4vw, 4.5rem));
+}
+
+.method__word {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.4vw, 4.25rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: var(--ls-tight);
+  color: var(--fg);
+  font-variation-settings: "wdth" 74, "wght" 800;
+  transition: font-variation-settings 1.1s var(--ease-type);
+}
+
+.method__step.in .method__word {
+  font-variation-settings: "wdth" 112, "wght" 800;
+}
+
+.method__rest {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.7vw, 1.625rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--fg-dim);
+  margin-top: var(--sp-3);
+  max-width: 16ch;
+}
+
+.method__text {
+  margin-top: clamp(1rem, 2vw, 1.75rem);
+  padding-top: clamp(1rem, 2vw, 1.75rem);
+  border-top: 1px solid var(--hair);
+  color: var(--fg-dim);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  max-width: 34ch;
+}
+
+/* ------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .method__steps {
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 6vw, 3.5rem);
+  }
+
+  .method__step {
+    padding-top: 0;
+  }
+
+  .method__rest,
+  .method__text {
+    max-width: 46ch;
+  }
+}

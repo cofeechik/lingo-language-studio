@@ -1,0 +1,103 @@
+/* ============================================================
+   Teachers — a contact sheet. Photographs stay natural: no
+   duotone, no shared filter, varied crops and offsets.
+   ============================================================ */
+
+.teachers {
+  padding-block: var(--section-y);
+}
+
+.teachers__sheet {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 2rem);
+  align-items: start;
+}
+
+.teacher {
+  margin-top: var(--offset, 0px);
+}
+
+.teacher__frame {
+  overflow: hidden;
+  aspect-ratio: var(--ratio, 3 / 4);
+  background: var(--paper-raised);
+}
+
+.teacher__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 900ms var(--ease);
+}
+
+.teacher:hover .teacher__frame img {
+  transform: scale(1.05);
+}
+
+.teacher__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  margin-top: var(--sp-4);
+  font-variation-settings: "wdth" 92, "wght" 700;
+  transition: font-variation-settings var(--t-slow) var(--ease-type);
+}
+
+.teacher:hover .teacher__name {
+  font-variation-settings: "wdth" 116, "wght" 800;
+}
+
+.teacher__langs {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: var(--sp-2);
+}
+
+.teacher__role {
+  font-size: var(--fs-sm);
+  color: var(--fg-dim);
+  margin-top: var(--sp-1);
+}
+
+.teachers__note {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--hair);
+  color: var(--fg-dim);
+  font-size: var(--fs-sm);
+  max-width: 62ch;
+}
+
+/* ------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .teachers__sheet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .teacher {
+    margin-top: 0;
+  }
+
+  .teacher:nth-child(even) {
+    margin-top: clamp(1.5rem, 5vw, 3rem);
+  }
+}
+
+@media (max-width: 420px) {
+  .teachers__sheet {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .teacher:nth-child(even) {
+    margin-top: 0;
+  }
+}

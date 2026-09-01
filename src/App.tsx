@@ -1,6 +1,11 @@
-import { Header } from "./components/Header/Header";
-import { Hero } from "./components/Hero/Hero";
-import { Languages } from "./components/Languages/Languages";
+import { Header } from "./sections/Header";
+import { Hero } from "./sections/Hero";
+import { Languages } from "./sections/Languages";
+import { Method } from "./sections/Method";
+import { Courses } from "./sections/Courses";
+import { Teachers } from "./sections/Teachers";
+import { Pricing } from "./sections/Pricing";
+import { Final } from "./sections/Final";
 
 export default function App() {
   return (
@@ -9,6 +14,11 @@ export default function App() {
       <main>
         <Hero />
         <Languages />
+        <Method />
+        <Courses />
+        <Teachers />
+        <Pricing />
+        <Final />
       </main>
     </>
   );

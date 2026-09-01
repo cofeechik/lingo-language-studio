@@ -1,0 +1,105 @@
+/* ============================================================
+   Courses — a full-bleed modular grid. Flat cells, hairline
+   seams, no radius and no shadow. Hover inverts the whole cell.
+   ============================================================ */
+
+.courses {
+  padding-block: var(--section-y) 0;
+}
+
+.courses__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--hair);
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+}
+
+.courses__cell {
+  position: relative;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  min-height: clamp(190px, 17vw, 250px);
+  padding: clamp(1.5rem, 2.6vw, 2.75rem) clamp(1.25rem, 2.4vw, 2.5rem);
+  transition: background var(--t) var(--ease), color var(--t) var(--ease);
+}
+
+.courses__cell:hover {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.courses__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2.375rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--ls-tight);
+  font-variation-settings: "wdth" 92, "wght" 700;
+  transition: font-variation-settings var(--t-slow) var(--ease-type);
+}
+
+.courses__cell:hover .courses__title {
+  font-variation-settings: "wdth" 116, "wght" 800;
+}
+
+.courses__text {
+  color: var(--on-ink-dim);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  max-width: 30ch;
+  transition: color var(--t) var(--ease);
+}
+
+.courses__cell:hover .courses__text {
+  color: rgba(20, 23, 15, 0.72);
+}
+
+.courses__go {
+  margin-top: auto;
+  align-self: flex-start;
+  color: var(--on-ink-faint);
+  transform: translateX(-4px);
+  opacity: 0;
+  transition: opacity var(--t) var(--ease), transform var(--t) var(--ease),
+    color var(--t) var(--ease);
+}
+
+.courses__cell:hover .courses__go {
+  opacity: 1;
+  transform: none;
+  color: var(--ink);
+}
+
+.courses__link {
+  position: absolute;
+  inset: 0;
+}
+
+/* ------------------------------------------------------------
+   Responsive
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .courses__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .courses__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .courses__cell {
+    min-height: 0;
+  }
+
+  /* No hover on touch — keep the arrow visible instead */
+  .courses__go {
+    opacity: 1;
+    transform: none;
+  }
+}
