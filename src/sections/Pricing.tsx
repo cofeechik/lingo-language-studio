@@ -4,16 +4,15 @@ import "./Pricing.css";
 
 export function Pricing() {
   return (
-    <section className="pricing section" id="pricing">
+    <section className="pricing section" id="pricing" data-surface="ink">
       <div className="shell">
-        <div className="head">
-          <p className="head__eyebrow eyebrow">Тарифы</p>
-          <h2 className="statement">
+        <div className="pricing__head">
+          <h2 className="section-title">
             Три формата.
             <br />
-            Одна программа внутри.
+            <em>Одна программа</em> внутри.
           </h2>
-          <p className="head__aside">
+          <p className="section-note">
             Отличается не содержание, а то, сколько голосов звучит на занятии —
             и сколько внимания достаётся каждому.
           </p>
@@ -25,7 +24,10 @@ export function Pricing() {
               className={`plan${p.featured ? " plan--featured" : ""}`}
               key={p.key}
             >
-              <h3 className="plan__name">{p.name}</h3>
+              <div className="plan__top">
+                <h3 className="plan__name">{p.name}</h3>
+                {p.featured && <span className="plan__flag">Популярный</span>}
+              </div>
               <p className="plan__line">{p.line}</p>
 
               <p className="plan__price">

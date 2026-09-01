@@ -9,7 +9,17 @@ interface Props {
   className?: string;
 }
 
-function Letters({ word, mode }: { word: string; mode: "in" | "out" }) {
+/** Splitting a word into per-letter boxes drops kerning, so the animated
+ *  layers are slightly wider than the same word set as one run. The ghost
+ *  that reserves the box has to be split the same way or the last letter
+ *  ends up clipped. */
+function Letters({
+  word,
+  mode,
+}: {
+  word: string;
+  mode: "in" | "out" | "ghost";
+}) {
   return (
     <span className={`kw__layer kw__layer--${mode}`} aria-hidden="true">
       {Array.from(word).map((ch, i) => (
@@ -51,9 +61,7 @@ export function KineticWord({ word, vocabulary, className = "" }: Props) {
 
   return (
     <span className={`kw ${className}`.trim()} aria-label={current} role="text">
-      <span className="kw__ghost" aria-hidden="true">
-        {longest}
-      </span>
+      <Letters word={longest} mode="ghost" />
       {previous && previous !== current && (
         <Letters key={`out-${previous}`} word={previous} mode="out" />
       )}

@@ -1,85 +1,48 @@
-import { useEffect, useRef } from "react";
-import { useScrollProgress, prefersReducedMotion } from "../lib/hooks";
+import { useScrollProgress } from "../lib/hooks";
 import { steps } from "../data/site";
 import "./Method.css";
 
-const TICKS = [0, 50, 100];
-
 export function Method() {
   const { ref, progress } = useScrollProgress<HTMLDivElement>();
-  const stepsRef = useRef<HTMLDivElement>(null);
-
-  /* Each step opens its width axis when it arrives, one at a time. */
-  useEffect(() => {
-    const root = stepsRef.current;
-    if (!root) return;
-    const items = Array.from(
-      root.querySelectorAll<HTMLElement>(".method__step"),
-    );
-
-    if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
-      items.forEach((el) => el.classList.add("in"));
-      return;
-    }
-
-    const io = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }),
-      { threshold: 0.4 },
-    );
-    items.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
 
   return (
-    <section className="method section" id="method" data-surface="paper">
-      <div className="shell" ref={ref}>
-        <div className="head">
-          <p className="head__eyebrow eyebrow">Как проходит обучение</p>
-          <h2 className="statement">
+    <section className="method section" id="method">
+      <div className="shell">
+        <div className="method__head">
+          <h2 className="section-title">
             Не курс на всех.
             <br />
-            Маршрут для одного.
+            <em>Маршрут</em> для одного.
           </h2>
-          <p className="head__aside">
+          <p className="section-note">
             Три момента, из которых складывается работа со студией — от первого
             разговора до того дня, когда язык перестаёт быть задачей.
           </p>
         </div>
 
         <div
-          className="method__axis"
+          className="method__track"
+          ref={ref}
           style={{ "--p": progress } as React.CSSProperties}
         >
-          <span className="method__axis-fill" />
-          {TICKS.map((left, i) => (
-            <span
-              className="method__tick"
-              key={left}
-              style={{ left: `${left}%` }}
-              data-passed={progress >= i / (TICKS.length - 1) - 0.02}
-            />
-          ))}
-        </div>
+          <div className="method__rail" aria-hidden="true">
+            <span className="method__fill" />
+          </div>
 
-        <div className="method__steps" ref={stepsRef}>
-          {steps.map((s, i) => (
-            <article
-              className="method__step"
-              key={s.key}
-              style={{ "--drop": i } as React.CSSProperties}
-            >
-              <h3>
-                <span className="method__word">{s.lead}</span>
-                <span className="method__rest">{s.rest}</span>
-              </h3>
-              <p className="method__text">{s.text}</p>
-            </article>
-          ))}
+          <ol className="method__steps">
+            {steps.map((s, i) => {
+              const reached = progress >= i / steps.length;
+              return (
+                <li className="step" key={s.key} data-on={reached}>
+                  <span className="step__node" data-on={reached} />
+                  <span className="step__n">{s.n}</span>
+                  <h3 className="step__title">{s.title}</h3>
+                  <p className="step__rest">{s.rest}</p>
+                  <p className="step__text">{s.text}</p>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </div>
     </section>

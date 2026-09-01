@@ -3,16 +3,14 @@ import "./Teachers.css";
 
 export function Teachers() {
   return (
-    <section className="teachers section" id="teachers" data-surface="paper">
+    <section className="teachers section" id="teachers">
       <div className="shell">
-        <div className="head">
-          <p className="head__eyebrow eyebrow">Преподаватели</p>
-          <h2 className="statement">
+        <div className="teachers__head">
+          <h2 className="section-title">
             Язык слышно
-            <br />
-            в живом человеке.
+            <br />в <em>живом человеке</em>.
           </h2>
-          <p className="head__aside">
+          <p className="section-note">
             Занятие ведёт не платформа и не запись, а человек, который слышит,
             где вы сбиваетесь, и умеет это объяснить.
           </p>
@@ -21,16 +19,12 @@ export function Teachers() {
         <div className="teachers__sheet">
           {teachers.map((t) => (
             <article
-              className="teacher"
+              className={`tch tch--${t.size}`}
               key={t.key}
-              style={
-                {
-                  "--ratio": t.ratio,
-                  "--offset": `${t.offset}px`,
-                } as React.CSSProperties
-              }
+              data-key={t.key}
+              style={{ "--ratio": t.ratio } as React.CSSProperties}
             >
-              <div className="teacher__frame">
+              <div className="tch__frame">
                 <img
                   src={t.image}
                   alt={`Преподаватель студии Lingo — ${t.name}`}
@@ -38,9 +32,11 @@ export function Teachers() {
                   decoding="async"
                 />
               </div>
-              <h3 className="teacher__name">{t.name}</h3>
-              <p className="teacher__langs">{t.langs}</p>
-              <p className="teacher__role">{t.role}</p>
+              <div className="tch__meta">
+                <h3 className="tch__name">{t.name}</h3>
+                <p className="tch__langs">{t.langs}</p>
+                <p className="tch__role">{t.role}</p>
+              </div>
             </article>
           ))}
         </div>

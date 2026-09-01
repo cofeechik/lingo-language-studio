@@ -5,17 +5,17 @@ export const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Adds `.in` to every `.rise` inside the ref once it enters the viewport.
- * Used only on section statements — not on every element on the page.
+ * Marks `.enter` blocks visible once they reach the viewport. One observer
+ * per section, and it is meant for whole blocks — not for every paragraph.
  */
-export function useRise<T extends HTMLElement = HTMLElement>() {
+export function useEnter<T extends HTMLElement = HTMLElement>() {
   const ref = useRef<T>(null);
 
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
 
-    const targets = Array.from(root.querySelectorAll<HTMLElement>(".rise"));
+    const targets = Array.from(root.querySelectorAll<HTMLElement>(".enter"));
     if (targets.length === 0) return;
 
     if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
@@ -31,7 +31,7 @@ export function useRise<T extends HTMLElement = HTMLElement>() {
           io.unobserve(e.target);
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -6% 0px" },
+      { threshold: 0.1, rootMargin: "0px 0px -5% 0px" },
     );
 
     targets.forEach((el) => io.observe(el));
@@ -94,8 +94,8 @@ export function useScrollProgress<T extends HTMLElement = HTMLElement>() {
     const measure = () => {
       frame = 0;
       const r = el.getBoundingClientRect();
-      const span = r.height + window.innerHeight * 0.6;
-      const passed = window.innerHeight * 0.8 - r.top;
+      const span = r.height + window.innerHeight * 0.55;
+      const passed = window.innerHeight * 0.85 - r.top;
       setProgress(Math.min(1, Math.max(0, passed / span)));
     };
     const onScroll = () => {

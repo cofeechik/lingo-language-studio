@@ -18,8 +18,8 @@ html {
 }
 
 body {
-  background: var(--ink);
-  color: var(--on-ink);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-ui);
   font-size: var(--fs-body);
   line-height: 1.55;
@@ -61,13 +61,13 @@ ol {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--special);
   outline-offset: 4px;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--ink);
+  background: var(--primary);
+  color: var(--paper);
 }
 
 /* ------------------------------------------------------------
@@ -92,80 +92,45 @@ ol {
 .display {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: var(--ls-tight);
-  line-height: 0.92;
-  font-variation-settings: "wdth" 100;
+  letter-spacing: var(--ls-display);
+  line-height: 0.95;
 }
 
-.statement {
+/* Section heading — every section states itself in one line of
+   display type. No eyebrow labels, no index numbers. */
+.section-title {
   font-family: var(--font-display);
-  font-size: var(--fs-mega);
-  font-weight: 600;
+  font-size: var(--fs-h2);
+  font-weight: 700;
   line-height: 0.98;
-  letter-spacing: var(--ls-tight);
+  letter-spacing: var(--ls-display);
   text-wrap: balance;
 }
 
-.eyebrow {
-  font-family: var(--font-ui);
-  font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--fg-dim);
+.section-title em {
+  font-style: normal;
+  color: var(--primary);
 }
 
-.lead {
+.section-note {
   font-size: var(--fs-lead);
   line-height: 1.5;
   color: var(--fg-dim);
-}
-
-.accent {
-  color: var(--accent);
+  max-width: 46ch;
 }
 
 /* ------------------------------------------------------------
-   Section head — shared across sections, no numbering
+   Section entrance — one move per section, applied to the block
+   as a whole rather than to every paragraph inside it.
    ------------------------------------------------------------ */
-.head {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-  gap: var(--sp-6) clamp(2rem, 5vw, 5rem);
-  align-items: end;
-  padding-bottom: clamp(2.5rem, 4vw, 4.5rem);
-}
-
-.head__eyebrow {
-  grid-column: 1 / -1;
-  margin-bottom: calc(-1 * var(--sp-3));
-}
-
-.head__aside {
-  color: var(--fg-dim);
-  font-size: var(--fs-lead);
-  line-height: 1.5;
-  max-width: 44ch;
-}
-
-@media (max-width: 860px) {
-  .head {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-}
-
-/* ------------------------------------------------------------
-   Reveal — used only on section statements, not every element
-   ------------------------------------------------------------ */
-.rise {
+.enter {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(20px);
   transition: opacity var(--t-slow) var(--ease),
     transform var(--t-slow) var(--ease);
 }
 
-.rise.in {
+.enter.in {
   opacity: 1;
   transform: none;
 }
@@ -192,7 +157,7 @@ ol {
     transition-duration: 0.01ms !important;
   }
 
-  .rise {
+  .enter {
     opacity: 1;
     transform: none;
   }

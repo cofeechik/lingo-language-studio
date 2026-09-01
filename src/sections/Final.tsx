@@ -1,29 +1,16 @@
 import { Action } from "../ui/Action";
-import { KineticWord } from "../ui/KineticWord";
-import { useCycle } from "../lib/hooks";
-import { invitations } from "../data/site";
 import "./Final.css";
 
 export function Final() {
-  const { index, advance } = useCycle(invitations.length, 2400);
-
   return (
-    <section className="final section" id="trial" data-surface="accent">
+    <section className="final section" id="trial" data-surface="primary">
       <div className="shell">
-        <p className="eyebrow">Пробный урок</p>
-
-        <div className="final__word" onMouseEnter={advance} onClick={advance}>
-          <KineticWord
-            className="final__kinetic"
-            word={invitations[index]}
-            vocabulary={invitations}
-          />
-        </div>
+        <p className="final__word">¿Empezamos?</p>
 
         <div className="final__foot">
           <p className="final__text">
-            Одно занятие, чтобы услышать свой уровень вслух и решить, ваш это
-            способ учиться или нет.
+            Одно занятие, чтобы услышать свой уровень и понять, подходит ли вам
+            этот способ учиться.
           </p>
           <Action tone="ink" href="#trial">
             Записаться на пробный урок

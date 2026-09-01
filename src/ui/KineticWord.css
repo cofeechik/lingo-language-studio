@@ -1,29 +1,33 @@
 /* ============================================================
-   Kinetic word — the brand's core device.
-   One word rolls out, the next rolls in, letter by letter,
-   settling from a condensed to a normal width axis.
+   Kinetic word — the one animated device on the site.
+   Letters leave and arrive one at a time, so the word changes
+   language letter by letter instead of cross-fading as a block.
    ============================================================ */
 
 .kw {
   position: relative;
   display: inline-block;
   overflow: hidden;
-  padding-block: 0.06em 0.1em;
+  padding-block: 0.08em 0.12em;
   vertical-align: top;
 }
 
-/* Keeps the box the size of the longest word so nothing reflows */
-.kw__ghost {
-  visibility: hidden;
-  pointer-events: none;
-  display: block;
-}
-
 .kw__layer {
-  position: absolute;
-  inset: 0.06em auto auto 0;
   display: flex;
   white-space: pre;
+}
+
+/* Reserves the box for the longest word — split exactly like the animated
+   layers so the measured width matches and nothing gets clipped. */
+.kw__layer--ghost {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.kw__layer--in,
+.kw__layer--out {
+  position: absolute;
+  inset: 0.08em auto auto 0;
 }
 
 .kw__ch {
@@ -31,27 +35,27 @@
   will-change: transform, opacity;
 }
 
-/* The outgoing word clears out first so the two never read as one mess */
+/* The outgoing word clears first, so the two never overlap as a blur */
 .kw__layer--in .kw__ch {
-  animation: kw-in 520ms var(--ease-type) both;
-  animation-delay: calc(150ms + var(--i) * 28ms);
+  animation: kw-in 540ms var(--ease-type) both;
+  animation-delay: calc(150ms + var(--i) * 32ms);
 }
 
 .kw__layer--out .kw__ch {
   animation: kw-out 260ms var(--ease-type) both;
-  animation-delay: calc(var(--i) * 14ms);
+  animation-delay: calc(var(--i) * 15ms);
 }
 
 @keyframes kw-in {
   from {
-    transform: translateY(0.92em);
+    transform: translateY(0.9em);
     opacity: 0;
-    font-variation-settings: "wdth" 68, "wght" 800;
+    font-weight: 900;
   }
   to {
     transform: translateY(0);
     opacity: 1;
-    font-variation-settings: "wdth" 100, "wght" 800;
+    font-weight: 800;
   }
 }
 
@@ -61,7 +65,7 @@
     opacity: 1;
   }
   to {
-    transform: translateY(-0.92em);
+    transform: translateY(-0.9em);
     opacity: 0;
   }
 }

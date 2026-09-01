@@ -1,138 +1,132 @@
 /* ============================================================
-   Hero — one typographic stack. No photo, no floating card.
-   The greeting changes language; the headline stays put.
+   Hero — typographic only. One giant word that keeps changing
+   language, the offer under it, the level system along the base.
+   No photograph, no floating panels.
    ============================================================ */
 
 .hero {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 4rem));
-  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  padding-top: calc(var(--header-h) + clamp(1rem, 3vw, 2.75rem));
+  padding-bottom: clamp(1.25rem, 2.5vw, 2.25rem);
   overflow: hidden;
 }
 
 .hero__inner {
   display: flex;
   flex-direction: column;
-  gap: clamp(1.5rem, 3vw, 3rem);
   flex: 1;
 }
 
-/* ---------- Meta row ---------- */
-.hero__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--sp-5);
-  padding-bottom: clamp(1rem, 3vw, 2.5rem);
+.hero__kicker {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--fg-dim);
+  padding-bottom: clamp(1.5rem, 4vw, 3.5rem);
 }
 
-.hero__meta-langs {
-  display: flex;
-  gap: var(--sp-4);
-}
-
-.hero__meta-langs span {
-  transition: color var(--t-fast) var(--ease);
-}
-
-.hero__meta-langs span[data-live="true"] {
-  color: var(--accent);
-}
-
-/* ---------- The greeting ---------- */
+/* ---------- The word ---------- */
 .hero__greeting {
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
-  gap: clamp(1rem, 2.5vw, 2.5rem);
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 2vw, 2rem);
   cursor: default;
 }
 
-.hero__kinetic {
+.hero__word {
+  /* never let flex shrink the word below its glyphs — it clips them */
+  flex: 0 0 auto;
+  max-width: 100%;
   font-family: var(--font-display);
-  font-size: var(--fs-kinetic);
+  font-size: var(--fs-word);
   font-weight: 800;
-  line-height: 0.82;
-  letter-spacing: -0.045em;
-  color: var(--accent);
-  font-variation-settings: "wdth" 100, "wght" 800;
+  line-height: 0.84;
+  letter-spacing: var(--ls-word);
+  color: var(--primary);
 }
 
-.hero__native {
-  padding-bottom: clamp(0.75rem, 2vw, 2rem);
+/* The small companion: which language is speaking right now */
+.hero__lang {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--sp-1);
-  text-align: right;
-  min-width: 8ch;
-  /* arrives with the incoming letters instead of snapping ahead of them */
-  animation: hero-label 420ms var(--ease) 150ms both;
+  align-items: center;
+  gap: var(--sp-3);
+  padding-bottom: clamp(0.75rem, 2vw, 1.75rem);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  animation: hero-lang 380ms var(--ease) 150ms both;
 }
 
-@keyframes hero-label {
+/* The one place the secondary colour appears in the hero */
+.hero__lang-dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  background: var(--secondary);
+}
+
+.hero__lang-code {
+  color: var(--fg-faint);
+}
+
+@keyframes hero-lang {
   from {
     opacity: 0;
     transform: translateY(6px);
   }
 }
 
-.hero__native b {
-  font-family: var(--font-display);
-  font-size: clamp(0.875rem, 1.1vw, 1.125rem);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--on-ink);
-}
-
 /* ---------- Headline ---------- */
 .hero__title {
   font-family: var(--font-display);
-  font-size: clamp(1.875rem, 5.2vw, 5.25rem);
-  font-weight: 600;
-  line-height: 0.98;
-  letter-spacing: var(--ls-tight);
-  max-width: 18ch;
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--ls-display);
+  margin-top: clamp(1.5rem, 3.5vw, 3rem);
+  max-width: 20ch;
 }
 
 .hero__title em {
   font-style: normal;
-  color: var(--accent);
+  color: var(--primary);
 }
 
-/* ---------- Bottom row: actions left, note right ---------- */
+/* ---------- Actions + supporting line ---------- */
 .hero__foot {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
-  gap: var(--sp-6) clamp(2rem, 5vw, 5rem);
-  align-items: end;
-  padding-top: clamp(1.5rem, 3vw, 3rem);
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 3rem);
+  margin-top: clamp(1.75rem, 4vw, 3.5rem);
 }
 
 .hero__actions {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2vw, 2rem);
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
   flex-wrap: wrap;
 }
 
 .hero__note {
-  color: var(--on-ink-dim);
+  justify-self: end;
+  max-width: 38ch;
   font-size: var(--fs-sm);
   line-height: 1.5;
-  max-width: 40ch;
-  justify-self: end;
+  color: var(--fg-dim);
 }
 
-/* ---------- Level scale rides the bottom edge of the first screen ---------- */
+/* ---------- Level system along the bottom edge ---------- */
 .hero__scale {
   margin-top: auto;
-  padding-top: clamp(1.5rem, 3vw, 2.75rem);
+  padding-top: clamp(2rem, 4vw, 3.5rem);
 }
 
 /* ------------------------------------------------------------
-   Responsive
+   Tablet — the composition holds, the note moves under the CTA
    ------------------------------------------------------------ */
 @media (max-width: 1024px) {
   .hero__foot {
@@ -142,10 +136,14 @@
 
   .hero__note {
     justify-self: start;
-    order: -1;
+    max-width: 52ch;
   }
 }
 
+/* ------------------------------------------------------------
+   Mobile — rebuilt for a vertical screen: the word leads, the
+   language sits under it, actions go full width.
+   ------------------------------------------------------------ */
 @media (max-width: 720px) {
   .hero {
     min-height: auto;
@@ -155,33 +153,34 @@
   .hero__greeting {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--sp-3);
+    gap: var(--sp-4);
   }
 
-  .hero__native {
+  .hero__word {
+    line-height: 0.9;
+  }
+
+  .hero__lang {
     padding-bottom: 0;
-    flex-direction: row;
-    gap: var(--sp-3);
-    align-items: baseline;
   }
 
-  .hero__meta-langs {
-    gap: var(--sp-3);
+  .hero__title {
+    max-width: none;
+    margin-top: var(--sp-6);
   }
 
   .hero__actions {
     width: 100%;
     flex-direction: column;
     align-items: stretch;
+    gap: var(--sp-4);
   }
 
   .hero__actions .tlink {
     justify-content: center;
   }
-}
 
-@media (max-width: 480px) {
-  .hero__meta-langs {
-    display: none;
+  .hero__scale {
+    padding-top: var(--sp-7);
   }
 }

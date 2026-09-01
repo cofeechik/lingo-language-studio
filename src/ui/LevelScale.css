@@ -1,7 +1,6 @@
 /* ============================================================
-   Level scale — A1 → C2 as a typographic system, not a widget.
-   The labels themselves grow in width and weight along the axis,
-   so progress is legible in the letterforms.
+   Level scale — A1 → C2 as one horizontal system under the hero.
+   Reached levels are typographically active; the rest recede.
    ============================================================ */
 
 .scale {
@@ -9,60 +8,66 @@
   width: 100%;
 }
 
+.scale__marks {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-bottom: clamp(0.75rem, 1.6vw, 1.25rem);
+}
+
+.scale__mark {
+  font-family: var(--font-display);
+  font-size: clamp(0.9375rem, 1.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--fg-faint);
+  transition: color var(--t) var(--ease);
+}
+
+.scale__mark[data-reached="true"] {
+  font-weight: 800;
+  color: var(--fg);
+}
+
+/* The last reached level is where the route currently sits */
+.scale__mark[data-current="true"] {
+  color: var(--primary);
+}
+
 .scale__rail {
   position: relative;
-  height: 1px;
+  height: 2px;
   background: var(--hair);
 }
 
 .scale__fill {
   position: absolute;
-  inset: -1px auto auto 0;
+  inset: 0 auto 0 0;
   width: 100%;
-  height: 3px;
-  background: var(--accent);
+  height: 2px;
+  background: var(--primary);
   transform-origin: left;
   transform: scaleX(0);
-  transition: transform 1.4s var(--ease);
+  transition: transform 1.2s var(--ease);
 }
 
 .scale.in .scale__fill {
   transform: scaleX(var(--p, 0.4));
 }
 
-.scale__marks {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding-top: var(--sp-4);
-}
-
-.scale__mark {
-  font-family: var(--font-display);
-  line-height: 1;
-  color: var(--fg-faint);
-  /* --k runs 0 → 1 across the scale and drives size, width and weight */
-  font-size: calc(0.8rem + var(--k) * 1.35rem);
-  font-variation-settings:
-    "wdth" calc(78 + var(--k) * 34),
-    "wght" calc(400 + var(--k) * 400);
-  transition: color var(--t) var(--ease);
-}
-
-.scale__mark[data-reached="true"] {
-  color: var(--fg);
-}
-
 .scale__caption {
   display: flex;
   justify-content: space-between;
   gap: var(--sp-4);
-  padding-bottom: var(--sp-4);
+  padding-top: var(--sp-3);
+  font-size: var(--fs-xs);
   color: var(--fg-dim);
 }
 
 @media (max-width: 560px) {
-  .scale__mark {
-    font-size: calc(0.75rem + var(--k) * 0.75rem);
+  .scale__caption {
+    font-size: 0.6875rem;
   }
 }

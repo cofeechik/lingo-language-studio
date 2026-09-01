@@ -1,5 +1,5 @@
 /* ============================================================
-   Header — transparent over the hero, solid once you scroll.
+   Header — sits on the paper ground, gains a hairline on scroll.
    ============================================================ */
 
 .hdr {
@@ -10,10 +10,8 @@
 }
 
 .hdr--stuck {
-  background: color-mix(in srgb, var(--ink) 88%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: inset 0 -1px 0 var(--hair-ink);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  box-shadow: inset 0 -1px 0 var(--hair);
 }
 
 .hdr__bar {
@@ -24,28 +22,20 @@
   gap: var(--sp-6);
 }
 
-/* ---------- Wordmark: width axis tightens on hover ---------- */
 .hdr__mark {
   font-family: var(--font-display);
   font-size: 1.375rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 1;
-  color: var(--on-ink);
-  font-variation-settings: "wdth" 100;
-  transition: font-variation-settings var(--t) var(--ease-type);
-}
-
-.hdr__mark:hover {
-  font-variation-settings: "wdth" 72;
+  color: var(--ink);
 }
 
 .hdr__mark i {
-  color: var(--accent);
+  color: var(--primary);
   font-style: normal;
 }
 
-/* ---------- Nav ---------- */
 .hdr__nav {
   display: flex;
   align-items: center;
@@ -54,12 +44,13 @@
 
 .hdr__link {
   font-size: var(--fs-sm);
-  color: var(--on-ink-dim);
+  font-weight: 500;
+  color: var(--fg-dim);
   transition: color var(--t-fast) var(--ease);
 }
 
 .hdr__link:hover {
-  color: var(--on-ink);
+  color: var(--primary);
 }
 
 .hdr__right {
@@ -82,13 +73,13 @@
 
 .hdr__burger span {
   width: 22px;
-  height: 1.5px;
-  background: var(--on-ink);
+  height: 2px;
+  background: var(--ink);
   transition: transform var(--t) var(--ease), opacity var(--t-fast) var(--ease);
 }
 
 .hdr__burger[aria-expanded="true"] span:nth-child(1) {
-  transform: translateY(7.5px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 
 .hdr__burger[aria-expanded="true"] span:nth-child(2) {
@@ -96,7 +87,7 @@
 }
 
 .hdr__burger[aria-expanded="true"] span:nth-child(3) {
-  transform: translateY(-7.5px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* ---------- Mobile menu ---------- */
@@ -104,8 +95,8 @@
   display: none;
   position: fixed;
   inset: var(--header-h) 0 0 0;
-  background: var(--ink);
-  padding: var(--sp-6) var(--pad) var(--sp-8);
+  background: var(--paper);
+  padding: var(--sp-5) var(--pad) var(--sp-8);
   flex-direction: column;
   overflow-y: auto;
 }
@@ -116,20 +107,16 @@
 
 .hdr__menu-link {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 9vw, 3rem);
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
   font-weight: 700;
-  letter-spacing: var(--ls-tight);
+  letter-spacing: var(--ls-display);
   line-height: 1;
   padding-block: clamp(0.75rem, 2.4vw, 1.125rem);
-  border-bottom: 1px solid var(--hair-ink);
-  font-variation-settings: "wdth" 100;
-  transition: font-variation-settings var(--t) var(--ease-type),
-    color var(--t-fast) var(--ease);
+  border-bottom: 1px solid var(--hair);
 }
 
 .hdr__menu-link:active {
-  color: var(--accent);
-  font-variation-settings: "wdth" 80;
+  color: var(--primary);
 }
 
 .hdr__menu-foot {
@@ -148,6 +135,22 @@
 }
 
 @media (max-width: 560px) {
+  :root {
+    --header-h: 64px;
+  }
+
+  .hdr__bar {
+    gap: var(--sp-4);
+  }
+
+  .hdr__right {
+    gap: var(--sp-4);
+  }
+}
+
+/* On a phone the bar can't hold the wordmark, the CTA and the burger at
+   once — the menu carries the full-width CTA instead. */
+@media (max-width: 430px) {
   .hdr__right .action {
     display: none;
   }

@@ -1,11 +1,19 @@
 /* ============================================================
-   Languages — a typographic index, not a grid of cards.
-   Each row is one word; hovering opens the width axis and
-   brings up an unfiltered photograph under the cursor.
+   Languages — a list, not cards. One hairline per row, and the
+   row itself reacts: the name grows, the greeting takes colour,
+   a short accent rule appears and a photograph slides in.
    ============================================================ */
 
 .langs {
   padding-block: var(--section-y);
+}
+
+.langs__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: var(--sp-5) clamp(2rem, 5vw, 5rem);
+  align-items: end;
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
 .langs__list {
@@ -14,57 +22,87 @@
 
 .langs__row {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: var(--sp-5);
-  padding: clamp(1rem, 2.2vw, 1.75rem) 0;
   border-bottom: 1px solid var(--hair);
-  transition: padding-left var(--t) var(--ease-type);
 }
 
-.langs__row:hover {
-  padding-left: clamp(0.75rem, 2vw, 2rem);
+.langs__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sp-5);
+  padding-block: clamp(1.125rem, 2.4vw, 2rem);
+  transition: transform var(--t) var(--ease-type);
+}
+
+.langs__row:hover .langs__inner,
+.langs__row:focus-within .langs__inner {
+  transform: translateX(clamp(8px, 1.4vw, 20px));
+}
+
+/* ---------- Left: name + greeting ---------- */
+.langs__lead {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  min-width: 0;
 }
 
 .langs__name {
   font-family: var(--font-display);
-  font-size: var(--fs-big);
-  font-weight: 500;
+  font-size: clamp(1.75rem, 3.6vw, 3.75rem);
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: var(--ls-tight);
-  color: var(--fg);
-  font-variation-settings: "wdth" 88, "wght" 500;
-  transition: font-variation-settings var(--t-slow) var(--ease-type),
-    color var(--t) var(--ease);
+  letter-spacing: var(--ls-display);
+  transform-origin: left center;
+  transition: transform var(--t) var(--ease-type);
 }
 
+/* the 3–5% growth the row promises */
 .langs__row:hover .langs__name,
 .langs__row:focus-within .langs__name {
-  color: var(--accent);
-  font-variation-settings: "wdth" 118, "wght" 800;
+  transform: scale(1.04);
 }
 
 .langs__hello {
-  font-family: var(--font-display);
-  font-size: clamp(0.9375rem, 1.3vw, 1.25rem);
+  font-size: clamp(0.9375rem, 1.2vw, 1.25rem);
   font-weight: 500;
-  color: var(--fg-dim);
-  margin-left: var(--sp-5);
-  transition: color var(--t) var(--ease), opacity var(--t) var(--ease);
+  color: var(--fg-faint);
+  transition: color var(--t) var(--ease);
 }
 
-.langs__row:hover .langs__hello {
-  color: var(--fg-dim);
+.langs__row:hover .langs__hello,
+.langs__row:focus-within .langs__hello {
+  color: var(--primary);
 }
 
-.langs__aside {
+/* Short accent rule that only exists on hover */
+.langs__rule {
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width var(--t) var(--ease-type);
+}
+
+.langs__row:hover .langs__rule,
+.langs__row:focus-within .langs__rule {
+  width: clamp(28px, 4vw, 56px);
+}
+
+/* ---------- Right: what the language is for ---------- */
+.langs__tags {
   display: flex;
-  align-items: baseline;
-  gap: clamp(1rem, 3vw, 3rem);
-  color: var(--fg-dim);
+  align-items: center;
+  gap: var(--sp-3);
   font-size: var(--fs-sm);
+  color: var(--fg-dim);
   white-space: nowrap;
+}
+
+.langs__tags span + span::before {
+  content: "·";
+  padding-right: var(--sp-3);
+  color: var(--fg-faint);
 }
 
 .langs__link {
@@ -72,66 +110,65 @@
   inset: 0;
 }
 
-/* ---------- Photograph that follows the cursor ---------- */
-.langs__peek {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: var(--z-cursor);
-  width: clamp(170px, 15vw, 250px);
+/* ---------- The photograph, revealed by the row it belongs to ---------- */
+.langs__photo {
+  position: absolute;
+  z-index: 1;
+  right: clamp(1rem, 8vw, 8rem);
+  top: 50%;
+  width: clamp(120px, 12vw, 180px);
   aspect-ratio: 4 / 5;
-  pointer-events: none;
   overflow: hidden;
+  pointer-events: none;
   opacity: 0;
-  transform: translate3d(var(--x, 0), var(--y, 0), 0) translate(-50%, -50%)
-    scale(0.92);
-  transition: opacity var(--t) var(--ease), transform var(--t) var(--ease);
+  transform: translateY(-50%) translateX(24px);
+  transition: opacity var(--t) var(--ease), transform var(--t) var(--ease-type);
 }
 
-.langs__peek[data-on="true"] {
+.langs__row:hover .langs__photo {
   opacity: 1;
-  transform: translate3d(var(--x, 0), var(--y, 0), 0) translate(-50%, -50%)
-    scale(1);
+  transform: translateY(-50%) translateX(0);
 }
 
-.langs__peek img {
+.langs__photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .langs__foot {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--sp-5);
-  padding-top: clamp(1.75rem, 3vw, 3rem);
-  color: var(--fg-dim);
-  font-size: var(--fs-sm);
+  padding-top: clamp(1.75rem, 3vw, 2.75rem);
 }
 
 /* ------------------------------------------------------------
    Responsive
    ------------------------------------------------------------ */
-@media (max-width: 860px) {
-  .langs__peek {
+@media (max-width: 1100px) {
+  .langs__photo {
     display: none;
-  }
-
-  .langs__row {
-    grid-template-columns: 1fr;
-    align-items: start;
-    gap: var(--sp-2);
-  }
-
-  .langs__aside {
-    white-space: normal;
   }
 }
 
-@media (max-width: 560px) {
-  .langs__hello {
-    display: none;
+@media (max-width: 860px) {
+  .langs__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .langs__inner {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: var(--sp-3);
+  }
+
+  .langs__lead {
+    flex-wrap: wrap;
+  }
+
+  .langs__tags {
+    white-space: normal;
+    flex-wrap: wrap;
   }
 }

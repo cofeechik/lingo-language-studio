@@ -1,53 +1,48 @@
 /* ============================================================
    LINGO — Design tokens
-   Art direction: Living Alphabet — kinetic variable typography
+   Living Alphabet, light-first: paper ground, one loud accent,
+   two colours held in reserve.
    ============================================================ */
 
 :root {
-  /* ---------- Colour: one base, one accent, neutrals ---------- */
-  --ink: #14170f; /* base — warm near-black */
-  --ink-raised: #1b1f16;
-  --paper: #f2efe6; /* neutral light surface */
-  --paper-raised: #e8e4d8;
-  --accent: #ff5b2e; /* the single bright accent */
-  --accent-press: #e34817;
+  /* ---------- Palette ---------- */
+  --paper: #f3f0e8; /* the ground almost everywhere */
+  --ink: #171717; /* text, and the one dark section */
+  --primary: #ff5a36; /* LINGO's colour: CTA, live words, fills */
+  --secondary: #c7d84d; /* rationed: a couple of markers per screen */
+  --special: #5b57e8; /* rarer still: small interactive details */
 
-  /* On-dark */
-  --on-ink: #edeae0;
-  --on-ink-dim: rgba(237, 234, 224, 0.58);
-  --on-ink-faint: rgba(237, 234, 224, 0.3);
-  --hair-ink: rgba(237, 234, 224, 0.16);
+  --primary-press: #e8431f;
+  --paper-shade: #eae6db; /* quiet fill inside the paper ground */
 
-  /* On-light */
-  --on-paper: #14170f;
-  --on-paper-dim: rgba(20, 23, 15, 0.62);
-  --on-paper-faint: rgba(20, 23, 15, 0.34);
-  --hair-paper: rgba(20, 23, 15, 0.16);
+  /* ---------- Foreground scale ---------- */
+  --fg: var(--ink);
+  --fg-dim: rgba(23, 23, 23, 0.64);
+  --fg-faint: rgba(23, 23, 23, 0.38);
+  --hair: rgba(23, 23, 23, 0.18);
+  --bg: var(--paper);
 
-  /* Per-surface aliases, flipped by [data-surface] */
-  --fg: var(--on-ink);
-  --fg-dim: var(--on-ink-dim);
-  --fg-faint: var(--on-ink-faint);
-  --hair: var(--hair-ink);
-  --bg: var(--ink);
+  /* ---------- Type ----------
+     Unbounded and Onest both carry full Cyrillic; the display/body
+     split is carried by weight, size and letter width, never by serifs. */
+  --font-display: "Unbounded", "Segoe UI", system-ui, sans-serif;
+  --font-ui: "Onest", "Segoe UI", system-ui, sans-serif;
 
-  /* ---------- Type ---------- */
-  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --font-ui: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
-
-  /* Kinetic hero word — the largest thing on the site */
-  --fs-kinetic: clamp(3.75rem, 13.5vw, 14rem);
-  --fs-mega: clamp(2rem, 5vw, 5.25rem); /* section statements */
-  --fs-big: clamp(1.75rem, 4vw, 4rem); /* list rows */
-  --fs-h2: clamp(1.75rem, 3vw, 3rem);
-  --fs-lead: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  /* The hero word: 140–200px on desktop. 13vw is the largest the longest
+     greeting (BONJOUR, ~0.92em per split glyph in Unbounded) can be and
+     still clear the shell padding at every viewport — measured, not
+     guessed, because overflow:hidden would hide the clipping. */
+  --fs-word: clamp(2.375rem, 13vw, 12.5rem);
+  --fs-h1: clamp(2.125rem, 5.4vw, 6rem); /* hero headline: 72–96px */
+  --fs-h2: clamp(1.875rem, 4.6vw, 5rem); /* section heads: 56–80px */
+  --fs-h3: clamp(1.375rem, 2.4vw, 2.5rem);
+  --fs-lead: clamp(1rem, 0.92rem + 0.4vw, 1.1875rem);
   --fs-body: 1rem;
-  --fs-sm: 0.875rem;
-  --fs-xs: 0.75rem;
-  --fs-label: 0.6875rem;
+  --fs-sm: 0.9375rem;
+  --fs-xs: 0.8125rem;
 
-  --ls-tight: -0.035em;
-  --ls-label: 0.16em;
+  --ls-word: -0.045em;
+  --ls-display: -0.03em;
 
   /* ---------- Space ---------- */
   --sp-1: 0.25rem;
@@ -61,37 +56,38 @@
   --sp-9: 6rem;
   --sp-10: 8rem;
 
-  --section-y: clamp(4.5rem, 2rem + 8vw, 10rem);
+  --section-y: clamp(4.5rem, 2rem + 7vw, 9rem);
 
   /* ---------- Layout ---------- */
   --shell: 1440px;
   --pad: clamp(1.25rem, 0.5rem + 3.4vw, 4.5rem);
-  --header-h: 72px;
+  --header-h: 76px;
 
   /* ---------- Motion ---------- */
   --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
   --ease-type: cubic-bezier(0.65, 0, 0.35, 1);
   --t-fast: 180ms;
-  --t: 420ms;
-  --t-slow: 780ms;
+  --t: 400ms;
+  --t-slow: 760ms;
 
   --z-header: 90;
-  --z-cursor: 120;
+  --z-float: 120;
 }
 
-/* Light surfaces flip the neutral aliases — no per-component overrides */
-[data-surface="paper"] {
-  --fg: var(--on-paper);
-  --fg-dim: var(--on-paper-dim);
-  --fg-faint: var(--on-paper-faint);
-  --hair: var(--hair-paper);
-  --bg: var(--paper);
+/* The single dark section (pricing) flips the foreground scale. */
+[data-surface="ink"] {
+  --fg: var(--paper);
+  --fg-dim: rgba(243, 240, 232, 0.62);
+  --fg-faint: rgba(243, 240, 232, 0.34);
+  --hair: rgba(243, 240, 232, 0.2);
+  --bg: var(--ink);
 }
 
-[data-surface="accent"] {
+/* The closing screen: primary as ground, ink as type. */
+[data-surface="primary"] {
   --fg: var(--ink);
-  --fg-dim: rgba(20, 23, 15, 0.68);
-  --fg-faint: rgba(20, 23, 15, 0.4);
-  --hair: rgba(20, 23, 15, 0.24);
-  --bg: var(--accent);
+  --fg-dim: rgba(23, 23, 23, 0.7);
+  --fg-faint: rgba(23, 23, 23, 0.42);
+  --hair: rgba(23, 23, 23, 0.26);
+  --bg: var(--primary);
 }

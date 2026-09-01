@@ -1,39 +1,21 @@
-import { useCallback, useRef, useState } from "react";
 import { TextLink } from "../ui/Action";
-import { useRise } from "../lib/hooks";
+import { useEnter } from "../lib/hooks";
 import { languages } from "../data/site";
 import "./Languages.css";
 
 export function Languages() {
-  const sectionRef = useRise<HTMLElement>();
-  const peekRef = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState<string | null>(null);
-
-  /* The peek image tracks the pointer through CSS vars — no re-render. */
-  const onMove = useCallback((e: React.MouseEvent) => {
-    const el = peekRef.current;
-    if (!el) return;
-    el.style.setProperty("--x", `${e.clientX}px`);
-    el.style.setProperty("--y", `${e.clientY}px`);
-  }, []);
-
-  const active = languages.find((l) => l.id === hovered);
+  const sectionRef = useEnter<HTMLElement>();
 
   return (
-    <section
-      className="langs section"
-      id="languages"
-      ref={sectionRef}
-      onMouseMove={onMove}
-    >
+    <section className="langs section" id="languages" ref={sectionRef}>
       <div className="shell">
-        <div className="head">
-          <p className="head__eyebrow eyebrow">Языки студии</p>
-          <h2 className="statement rise">
-            Шесть языков. Один способ<br />
-            их наконец услышать.
+        <div className="langs__head enter">
+          <h2 className="section-title">
+            Шесть языков.
+            <br />
+            <em>Один способ</em> их услышать.
           </h2>
-          <p className="head__aside rise">
+          <p className="section-note">
             Направление выбирается не по популярности, а по тому, где язык вам
             нужен: в разговоре, в работе, в переезде или в дороге.
           </p>
@@ -41,40 +23,39 @@ export function Languages() {
 
         <ul className="langs__list">
           {languages.map((l) => (
-            <li
-              className="langs__row"
-              key={l.id}
-              onMouseEnter={() => setHovered(l.id)}
-              onMouseLeave={() => setHovered(null)}
-            >
-              <p className="langs__name">
-                {l.native}
-                <span className="langs__hello">{l.hello}</span>
-              </p>
+            <li className="langs__row" key={l.id}>
+              <div className="langs__inner">
+                <div className="langs__lead">
+                  <span className="langs__name">{l.native}</span>
+                  <span className="langs__hello">{l.hello}</span>
+                  <span className="langs__rule" aria-hidden="true" />
+                </div>
 
-              <p className="langs__aside">{l.note}</p>
+                <p className="langs__tags">
+                  {l.tags.map((t) => (
+                    <span key={t}>{t}</span>
+                  ))}
+                </p>
+              </div>
+
+              <div className="langs__photo" aria-hidden="true">
+                <img src={l.image} alt="" loading="lazy" decoding="async" />
+              </div>
 
               <a
                 className="langs__link"
                 href="#trial"
                 aria-label={`${l.ru} язык — записаться на пробный урок`}
-                onFocus={() => setHovered(l.id)}
-                onBlur={() => setHovered(null)}
               />
             </li>
           ))}
         </ul>
 
-        <div className="langs__foot">
-          <p>Не нашли нужный язык? Подберём преподавателя под запрос.</p>
-          <TextLink href="#trial">Написать студии</TextLink>
-        </div>
-      </div>
-
-      <div className="langs__peek" ref={peekRef} data-on={Boolean(active)}>
-        {active && (
-          <img src={active.image} alt="" loading="lazy" decoding="async" />
-        )}
+        <p className="langs__foot">
+          <TextLink href="#trial">
+            Нужен язык, которого здесь нет — напишите студии
+          </TextLink>
+        </p>
       </div>
     </section>
   );

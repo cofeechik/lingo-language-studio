@@ -5,16 +5,16 @@ export function Arrow({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      width="16"
+      width="17"
       height="10"
-      viewBox="0 0 16 10"
+      viewBox="0 0 17 10"
       fill="none"
       aria-hidden="true"
     >
       <path
-        d="M0 5h14M10 1l4 4-4 4"
+        d="M0 5h15M11 1l4 4-4 4"
         stroke="currentColor"
-        strokeWidth="1.4"
+        strokeWidth="1.6"
         strokeLinecap="square"
       />
     </svg>
@@ -22,18 +22,20 @@ export function Arrow({ className }: { className?: string }) {
 }
 
 interface ActionProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  children: string;
-  tone?: "accent" | "ink";
+  children: ReactNode;
+  tone?: "primary" | "ink";
   size?: "md" | "sm";
   wide?: boolean;
+  arrow?: boolean;
 }
 
-/** Primary CTA. The label rolls on hover — same motion as the hero word. */
+/** Primary CTA — a plain rectangle in the brand colour. */
 export function Action({
   children,
-  tone = "accent",
+  tone = "primary",
   size = "md",
   wide = false,
+  arrow = true,
   className = "",
   href = "#trial",
   ...rest
@@ -50,10 +52,8 @@ export function Action({
 
   return (
     <a className={cls} href={href} {...rest}>
-      <span className="action__roll">
-        <span>{children}</span>
-        <span aria-hidden="true">{children}</span>
-      </span>
+      {children}
+      {arrow && <Arrow className="action__arrow" />}
     </a>
   );
 }

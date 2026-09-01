@@ -51,7 +51,7 @@ export function Header() {
         </nav>
 
         <div className="hdr__right">
-          <Action size="sm" href="#trial">
+          <Action size="sm" href="#trial" arrow={false}>
             Пробный урок
           </Action>
           <button
@@ -81,7 +81,7 @@ export function Header() {
           </a>
         ))}
         <div className="hdr__menu-foot">
-          <Action href="#trial" wide>
+          <Action href="#trial" wide onClick={() => setOpen(false)}>
             Записаться на пробный урок
           </Action>
         </div>

@@ -1,21 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { LEVELS } from "../data/site";
+import { LEVELS, LEVEL_REACHED } from "../data/site";
 import "./LevelScale.css";
 
 interface Props {
-  /** How far along the scale the accent rail is drawn, 0 → 1. */
-  progress?: number;
   left?: string;
   right?: string;
   className?: string;
 }
 
-export function LevelScale({
-  progress = 0.42,
-  left,
-  right,
-  className = "",
-}: Props) {
+export function LevelScale({ left, right, className = "" }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
 
@@ -32,13 +25,14 @@ export function LevelScale({
           io.disconnect();
         }
       },
-      { threshold: 0.4 },
+      { threshold: 0.3 },
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
-  const reachedUpTo = Math.round(progress * (LEVELS.length - 1));
+  // The rail stops in the middle of the last reached label.
+  const progress = (LEVEL_REACHED + 0.5) / LEVELS.length;
 
   return (
     <div
@@ -46,29 +40,29 @@ export function LevelScale({
       ref={ref}
       style={{ "--p": progress } as React.CSSProperties}
     >
-      {(left || right) && (
-        <p className="scale__caption eyebrow">
-          <span>{left}</span>
-          <span>{right}</span>
-        </p>
-      )}
-
-      <div className="scale__rail">
-        <span className="scale__fill" />
-      </div>
-
       <ol className="scale__marks">
         {LEVELS.map((lvl, i) => (
           <li
             className="scale__mark"
             key={lvl}
-            data-reached={i <= reachedUpTo}
-            style={{ "--k": i / (LEVELS.length - 1) } as React.CSSProperties}
+            data-reached={i <= LEVEL_REACHED}
+            data-current={i === LEVEL_REACHED}
           >
             {lvl}
           </li>
         ))}
       </ol>
+
+      <div className="scale__rail">
+        <span className="scale__fill" />
+      </div>
+
+      {(left || right) && (
+        <p className="scale__caption">
+          <span>{left}</span>
+          <span>{right}</span>
+        </p>
+      )}
     </div>
   );
 }

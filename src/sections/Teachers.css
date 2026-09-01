@@ -1,103 +1,175 @@
 /* ============================================================
-   Teachers — a contact sheet. Photographs stay natural: no
-   duotone, no shared filter, varied crops and offsets.
+   Teachers — an editorial contact sheet, deliberately uneven:
+   one large portrait with its caption beside it, two mid-sized,
+   one small. Photographs keep their own colour, no filters.
    ============================================================ */
 
 .teachers {
   padding-block: var(--section-y);
 }
 
+.teachers__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: var(--sp-5) clamp(2rem, 5vw, 5rem);
+  align-items: end;
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
 .teachers__sheet {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1rem, 2vw, 2rem);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2vw, 2rem);
+  row-gap: clamp(2rem, 4vw, 4rem);
   align-items: start;
 }
 
-.teacher {
-  margin-top: var(--offset, 0px);
-}
-
-.teacher__frame {
+.tch__frame {
   overflow: hidden;
   aspect-ratio: var(--ratio, 3 / 4);
-  background: var(--paper-raised);
+  background: var(--paper-shade);
 }
 
-.teacher__frame img {
+.tch__frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.01);
-  transition: transform 900ms var(--ease);
+  transition: transform 800ms var(--ease);
 }
 
-.teacher:hover .teacher__frame img {
-  transform: scale(1.05);
+.tch:hover .tch__frame img {
+  transform: scale(1.03);
 }
 
-.teacher__name {
+.tch__name {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+  font-size: clamp(1.25rem, 1.9vw, 2rem);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: var(--ls-tight);
-  margin-top: var(--sp-4);
-  font-variation-settings: "wdth" 92, "wght" 700;
-  transition: font-variation-settings var(--t-slow) var(--ease-type);
+  letter-spacing: var(--ls-display);
 }
 
-.teacher:hover .teacher__name {
-  font-variation-settings: "wdth" 116, "wght" 800;
-}
-
-.teacher__langs {
-  font-family: var(--font-display);
+/* the language is a small marker, not a badge */
+.tch__langs {
   font-size: var(--fs-sm);
   font-weight: 600;
-  color: var(--accent);
+  color: var(--primary);
   margin-top: var(--sp-2);
 }
 
-.teacher__role {
+.tch__role {
   font-size: var(--fs-sm);
   color: var(--fg-dim);
   margin-top: var(--sp-1);
 }
 
+/* ---------- Large portrait: caption sits beside the photograph ---------- */
+.tch--lg {
+  grid-column: 1 / 7;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.5fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+  align-items: end;
+}
+
+.tch--lg .tch__name {
+  font-size: clamp(1.5rem, 2.6vw, 2.75rem);
+}
+
+/* ---------- The rest: caption under the photograph ---------- */
+.tch--md,
+.tch--sm {
+  display: flex;
+  flex-direction: column;
+}
+
+.tch--md .tch__meta,
+.tch--sm .tch__meta {
+  padding-top: var(--sp-4);
+}
+
+.tch[data-key="b"] {
+  grid-column: 8 / 12;
+  margin-top: clamp(2rem, 6vw, 5.5rem);
+}
+
+.tch[data-key="c"] {
+  grid-column: 3 / 7;
+  margin-top: clamp(0.5rem, 2vw, 2rem);
+}
+
+.tch[data-key="d"] {
+  grid-column: 8 / 11;
+}
+
 .teachers__note {
-  margin-top: clamp(2rem, 4vw, 3.5rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
   padding-top: var(--sp-5);
   border-top: 1px solid var(--hair);
-  color: var(--fg-dim);
   font-size: var(--fs-sm);
-  max-width: 62ch;
+  color: var(--fg-dim);
+  max-width: 60ch;
 }
 
 /* ------------------------------------------------------------
-   Responsive
+   Tablet — the rhythm survives on six columns
    ------------------------------------------------------------ */
 @media (max-width: 900px) {
+  .teachers__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
   .teachers__sheet {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 1.5rem);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
-  .teacher {
-    margin-top: 0;
+  .tch--lg {
+    grid-column: 1 / 5;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.55fr);
   }
 
-  .teacher:nth-child(even) {
-    margin-top: clamp(1.5rem, 5vw, 3rem);
+  .tch[data-key="b"] {
+    grid-column: 5 / 7;
+    margin-top: clamp(2rem, 8vw, 4rem);
+  }
+
+  .tch[data-key="c"] {
+    grid-column: 1 / 4;
+  }
+
+  .tch[data-key="d"] {
+    grid-column: 4 / 7;
+    margin-top: clamp(1rem, 4vw, 2.5rem);
   }
 }
 
-@media (max-width: 370px) {
+/* ------------------------------------------------------------
+   Mobile — still asymmetric, one to two columns
+   ------------------------------------------------------------ */
+@media (max-width: 600px) {
   .teachers__sheet {
-    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--sp-6);
   }
 
-  .teacher:nth-child(even) {
+  .tch--lg {
+    grid-column: 1 / 7;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-4);
+    align-items: start;
+  }
+
+  .tch[data-key="b"] {
+    grid-column: 1 / 4;
     margin-top: 0;
+  }
+
+  .tch[data-key="c"] {
+    grid-column: 4 / 7;
+    margin-top: clamp(1.5rem, 8vw, 3rem);
+  }
+
+  .tch[data-key="d"] {
+    grid-column: 1 / 5;
   }
 }

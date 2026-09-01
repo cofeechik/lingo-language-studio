@@ -6,32 +6,34 @@ export function Courses() {
   return (
     <section className="courses section" id="courses">
       <div className="shell">
-        <div className="head">
-          <p className="head__eyebrow eyebrow">Направления</p>
-          <h2 className="statement">
+        <div className="courses__head">
+          <h2 className="section-title">
             Язык нужен не вообще.
-            <br />А для чего-то.
+            <br />А <em>для чего-то</em>.
           </h2>
-          <p className="head__aside">
+          <p className="section-note">
             Выберите повод — программа, лексика и темп занятий соберутся вокруг
             него. Направление можно поменять по дороге.
           </p>
         </div>
-      </div>
 
-      <div className="courses__grid">
-        {courses.map((c) => (
-          <article className="courses__cell" key={c.key}>
-            <h3 className="courses__title">{c.title}</h3>
-            <p className="courses__text">{c.text}</p>
-            <Arrow className="courses__go" />
-            <a
-              className="courses__link"
-              href="#trial"
-              aria-label={`${c.title} — записаться на пробный урок`}
-            />
-          </article>
-        ))}
+        <div className="courses__grid">
+          {courses.map((c) => (
+            <article
+              className={`cell${c.tone === "secondary" ? " cell--secondary" : ""}`}
+              key={c.key}
+            >
+              <h3 className="cell__title">{c.title}</h3>
+              <p className="cell__text">{c.text}</p>
+              <Arrow className="cell__go" />
+              <a
+                className="cell__link"
+                href="#trial"
+                aria-label={`${c.title} — записаться на пробный урок`}
+              />
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

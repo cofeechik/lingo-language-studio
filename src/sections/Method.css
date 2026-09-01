@@ -1,109 +1,151 @@
 /* ============================================================
-   Method — three moments on one axis. Light surface, no boxes:
-   the rail fills as you scroll and the step words open up.
+   Method — three moments on one continuous track. The track is
+   the section's only graphic, and it fills as you scroll.
    ============================================================ */
 
 .method {
   padding-block: var(--section-y);
+  background: var(--paper-shade);
 }
 
-/* ---------- Axis ---------- */
-.method__axis {
+.method__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: var(--sp-5) clamp(2rem, 5vw, 5rem);
+  align-items: end;
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+/* ---------- Track ---------- */
+.method__track {
   position: relative;
-  height: 1px;
-  background: var(--hair);
-  margin-bottom: clamp(2rem, 4vw, 4rem);
 }
 
-.method__axis-fill {
+.method__rail {
   position: absolute;
-  inset: -1px auto auto 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 3px;
-  background: var(--accent);
-  transform-origin: left;
-  transform: scaleX(var(--p, 0));
-}
-
-.method__tick {
-  position: absolute;
-  top: -4px;
-  width: 1px;
-  height: 9px;
+  height: 2px;
   background: var(--hair);
-  transition: background var(--t) var(--ease);
 }
 
-.method__tick[data-passed="true"] {
-  background: var(--accent);
+.method__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--primary);
+  transform-origin: left center;
+  transform: scaleX(var(--p, 0));
 }
 
 /* ---------- Steps ---------- */
 .method__steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(2rem, 4vw, 4.5rem);
-  align-items: start;
+  gap: clamp(1.5rem, 3vw, 3.5rem);
 }
 
-/* Staircase: each column drops a little further than the last */
-.method__step {
-  padding-top: calc(var(--drop, 0) * clamp(1.5rem, 4vw, 4.5rem));
+.step {
+  position: relative;
+  padding-top: clamp(1.75rem, 3vw, 2.75rem);
+  padding-right: var(--sp-5);
 }
 
-.method__word {
+/* the node where each step meets the track */
+.step__node {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: var(--paper-shade);
+  box-shadow: inset 0 0 0 2px var(--hair);
+  transition: background var(--t) var(--ease), box-shadow var(--t) var(--ease);
+}
+
+.step__node[data-on="true"] {
+  background: var(--primary);
+  box-shadow: inset 0 0 0 2px var(--primary);
+}
+
+.step__n {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.4vw, 4.25rem);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--fg-faint);
+  transition: color var(--t) var(--ease);
+}
+
+.step[data-on="true"] .step__n {
+  color: var(--primary);
+}
+
+.step__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 3.2vw, 3.25rem);
   font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: var(--ls-tight);
-  color: var(--fg);
-  font-variation-settings: "wdth" 74, "wght" 800;
-  transition: font-variation-settings 1.1s var(--ease-type);
-}
-
-.method__step.in .method__word {
-  font-variation-settings: "wdth" 112, "wght" 800;
-}
-
-.method__rest {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(1.125rem, 1.7vw, 1.625rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--fg-dim);
+  line-height: 1;
+  letter-spacing: var(--ls-display);
+  text-transform: uppercase;
   margin-top: var(--sp-3);
-  max-width: 16ch;
 }
 
-.method__text {
-  margin-top: clamp(1rem, 2vw, 1.75rem);
-  padding-top: clamp(1rem, 2vw, 1.75rem);
-  border-top: 1px solid var(--hair);
-  color: var(--fg-dim);
+.step__rest {
+  font-size: var(--fs-lead);
+  line-height: 1.35;
+  color: var(--fg);
+  margin-top: var(--sp-3);
+  max-width: 18ch;
+}
+
+.step__text {
   font-size: var(--fs-sm);
   line-height: 1.6;
+  color: var(--fg-dim);
+  margin-top: var(--sp-4);
   max-width: 34ch;
 }
 
 /* ------------------------------------------------------------
-   Responsive
+   Mobile / tablet — the same track, stood on its end
    ------------------------------------------------------------ */
 @media (max-width: 900px) {
+  .method__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .method__rail {
+    top: 5px;
+    left: 5px;
+    width: 2px;
+    height: calc(100% - 5px);
+  }
+
+  .method__fill {
+    transform-origin: center top;
+    transform: scaleY(var(--p, 0));
+  }
+
   .method__steps {
     grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 6vw, 3.5rem);
+    gap: clamp(2rem, 6vw, 3rem);
   }
 
-  .method__step {
+  .step {
     padding-top: 0;
+    padding-left: clamp(1.75rem, 6vw, 2.5rem);
+    padding-right: 0;
   }
 
-  .method__rest,
-  .method__text {
+  .step__node {
+    top: 5px;
+    left: 0;
+  }
+
+  .step__rest,
+  .step__text {
     max-width: 46ch;
   }
 }

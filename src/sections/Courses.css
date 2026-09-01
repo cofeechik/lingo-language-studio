@@ -1,10 +1,19 @@
 /* ============================================================
-   Courses — a full-bleed modular grid. Flat cells, hairline
-   seams, no radius and no shadow. Hover inverts the whole cell.
+   Courses — a 2 × 3 typographic system. Flat cells, hairline
+   seams, square corners. Hover fills the cell with the brand
+   colour; one cell already carries the secondary.
    ============================================================ */
 
 .courses {
-  padding-block: var(--section-y) 0;
+  padding-block: var(--section-y);
+}
+
+.courses__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: var(--sp-5) clamp(2rem, 5vw, 5rem);
+  align-items: end;
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
 .courses__grid {
@@ -12,78 +21,81 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   background: var(--hair);
-  border-top: 1px solid var(--hair);
-  border-bottom: 1px solid var(--hair);
+  border-block: 1px solid var(--hair);
 }
 
-.courses__cell {
+.cell {
   position: relative;
-  background: var(--ink);
+  background: var(--paper);
   display: flex;
   flex-direction: column;
   gap: var(--sp-4);
-  min-height: clamp(190px, 17vw, 250px);
-  /* inline padding matches the shell so cells sit on the page grid */
-  padding: clamp(1.5rem, 2.6vw, 2.75rem) var(--pad);
+  min-height: clamp(190px, 18vw, 260px);
+  padding: clamp(1.5rem, 2.4vw, 2.5rem) clamp(1.25rem, 2vw, 2rem);
   transition: background var(--t) var(--ease), color var(--t) var(--ease);
 }
 
-.courses__cell:hover {
-  background: var(--accent);
+/* the single secondary-coloured cell in the grid */
+.cell--secondary {
+  background: var(--secondary);
+}
+
+.cell:hover {
+  background: var(--primary);
   color: var(--ink);
 }
 
-.courses__title {
+.cell__title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 2.4vw, 2.375rem);
+  font-size: clamp(1.375rem, 2.1vw, 2.125rem);
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: var(--ls-tight);
-  font-variation-settings: "wdth" 92, "wght" 700;
-  transition: font-variation-settings var(--t-slow) var(--ease-type);
+  line-height: 1.02;
+  letter-spacing: var(--ls-display);
 }
 
-.courses__cell:hover .courses__title {
-  font-variation-settings: "wdth" 116, "wght" 800;
-}
-
-.courses__text {
-  color: var(--on-ink-dim);
+.cell__text {
   font-size: var(--fs-sm);
   line-height: 1.55;
+  color: var(--fg-dim);
   max-width: 30ch;
   transition: color var(--t) var(--ease);
 }
 
-.courses__cell:hover .courses__text {
-  color: rgba(20, 23, 15, 0.72);
+.cell:hover .cell__text,
+.cell--secondary .cell__text {
+  color: rgba(23, 23, 23, 0.72);
 }
 
-.courses__go {
+.cell__go {
   margin-top: auto;
   align-self: flex-start;
-  color: var(--on-ink-faint);
-  transform: translateX(-4px);
-  opacity: 0;
-  transition: opacity var(--t) var(--ease), transform var(--t) var(--ease),
-    color var(--t) var(--ease);
+  color: var(--fg-faint);
+  transition: color var(--t) var(--ease), transform var(--t) var(--ease);
 }
 
-.courses__cell:hover .courses__go {
-  opacity: 1;
-  transform: none;
+.cell--secondary .cell__go {
+  color: rgba(23, 23, 23, 0.55);
+}
+
+.cell:hover .cell__go {
   color: var(--ink);
+  transform: translateX(6px);
 }
 
-.courses__link {
+.cell__link {
   position: absolute;
   inset: 0;
 }
 
 /* ------------------------------------------------------------
-   Responsive
+   Responsive — 3 → 2 → 1 column
    ------------------------------------------------------------ */
 @media (max-width: 900px) {
+  .courses__head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
   .courses__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -94,13 +106,12 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .courses__cell {
+  .cell {
     min-height: 0;
   }
 
-  /* No hover on touch — keep the arrow visible instead */
-  .courses__go {
-    opacity: 1;
-    transform: none;
+  /* no hover on touch — keep the arrow legible */
+  .cell__go {
+    color: var(--fg-dim);
   }
 }

@@ -1,5 +1,6 @@
 /* ============================================================
-   Final — the greeting loop closes on a full accent surface.
+   Final — the closing screen, entirely in the brand colour.
+   One very large question, one line, one dark button.
    ============================================================ */
 
 .final {
@@ -7,17 +8,15 @@
 }
 
 .final__word {
-  padding-block: clamp(1rem, 2vw, 2rem) clamp(1.5rem, 3vw, 3rem);
-}
-
-.final__kinetic {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 9vw, 9rem);
+  /* 110–150px on desktop. "¿Empezamos?" is one unbreakable token, so the
+     lower bound has to stay small enough to clear the shell on a phone. */
+  font-size: clamp(1.875rem, 9.6vw, 9.375rem);
   font-weight: 800;
-  line-height: 0.86;
-  letter-spacing: -0.045em;
+  line-height: 0.9;
+  letter-spacing: var(--ls-word);
   color: var(--ink);
-  font-variation-settings: "wdth" 100, "wght" 800;
+  padding-bottom: clamp(1.5rem, 3.5vw, 3rem);
 }
 
 .final__foot {
@@ -32,7 +31,7 @@
 .final__text {
   font-size: var(--fs-lead);
   line-height: 1.45;
-  max-width: 34ch;
+  max-width: 38ch;
   color: var(--fg-dim);
 }
 
@@ -46,7 +45,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--sp-4) var(--sp-6);
+  gap: var(--sp-3) var(--sp-6);
   padding-block: clamp(1.25rem, 2.4vw, 1.75rem);
   font-size: var(--fs-xs);
   color: var(--fg-dim);
@@ -56,7 +55,7 @@
   font-family: var(--font-display);
   font-size: 1.125rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--ink);
 }
 

@@ -12,15 +12,16 @@ export interface Greeting {
 }
 
 export const greetings: Greeting[] = [
+  { word: "HOLA", code: "ES", lang: "Español" },
   { word: "HELLO", code: "EN", lang: "English" },
   { word: "BONJOUR", code: "FR", lang: "Français" },
-  { word: "HOLA", code: "ES", lang: "Español" },
-  { word: "CIAO", code: "IT", lang: "Italiano" },
   { word: "HALLO", code: "DE", lang: "Deutsch" },
-  { word: "OLÁ", code: "PT", lang: "Português" },
+  { word: "CIAO", code: "IT", lang: "Italiano" },
 ];
 
 export const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
+/** How far the demo route has been walked — the first three read as reached. */
+export const LEVEL_REACHED = 2;
 
 /* ---------- Languages ---------- */
 export interface LanguageRow {
@@ -29,7 +30,7 @@ export interface LanguageRow {
   ru: string;
   code: string;
   hello: string;
-  note: string;
+  tags: string[];
   image: string;
 }
 
@@ -40,9 +41,9 @@ export const languages: LanguageRow[] = [
     ru: "Английский",
     code: "EN",
     hello: "Hello",
-    note: "Разговор, работа, экзамены",
+    tags: ["Разговор", "Работа", "Экзамены"],
     image:
-      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=640&q=70",
+      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=520&q=72",
   },
   {
     id: "de",
@@ -50,9 +51,9 @@ export const languages: LanguageRow[] = [
     ru: "Немецкий",
     code: "DE",
     hello: "Hallo",
-    note: "Учёба, работа, переезд",
+    tags: ["Учёба", "Работа", "Переезд"],
     image:
-      "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=640&q=70",
+      "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=520&q=72",
   },
   {
     id: "es",
@@ -60,9 +61,9 @@ export const languages: LanguageRow[] = [
     ru: "Испанский",
     code: "ES",
     hello: "Hola",
-    note: "Речь с первого занятия",
+    tags: ["Разговор", "Путешествия"],
     image:
-      "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=640&q=70",
+      "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=520&q=72",
   },
   {
     id: "fr",
@@ -70,9 +71,9 @@ export const languages: LanguageRow[] = [
     ru: "Французский",
     code: "FR",
     hello: "Bonjour",
-    note: "Фонетика и живая речь",
+    tags: ["Фонетика", "Живая речь"],
     image:
-      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=640&q=70",
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=520&q=72",
   },
   {
     id: "it",
@@ -80,9 +81,9 @@ export const languages: LanguageRow[] = [
     ru: "Итальянский",
     code: "IT",
     hello: "Ciao",
-    note: "Язык через культуру",
+    tags: ["Культура", "Разговор"],
     image:
-      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=640&q=70",
+      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=520&q=72",
   },
   {
     id: "pt",
@@ -90,29 +91,32 @@ export const languages: LanguageRow[] = [
     ru: "Португальский",
     code: "PT",
     hello: "Olá",
-    note: "Европейский и бразильский",
+    tags: ["Европейский и бразильский"],
     image:
-      "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=640&q=70",
+      "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=520&q=72",
   },
 ];
 
 /* ---------- How it works ---------- */
 export const steps = [
   {
-    key: "start",
-    lead: "Слушаем,",
+    key: "listen",
+    n: "01",
+    title: "Слушаем",
     rest: "как вы говорите сейчас",
-    text: "Первое занятие — разговор, а не тест. Преподаватель слышит уровень в речи и сразу называет точку старта на шкале.",
+    text: "Первое занятие — разговор, а не тест. Преподаватель слышит уровень в речи и называет точку старта.",
   },
   {
     key: "route",
-    lead: "Собираем",
+    n: "02",
+    title: "Собираем",
     rest: "маршрут до вашей цели",
-    text: "Цель формулируете вы: собеседование, переезд, экзамен или свободный разговор. Программа строится от неё назад — к сегодняшнему уровню.",
+    text: "Цель формулируете вы: собеседование, переезд, экзамен или свободный разговор. Программа строится от неё назад.",
   },
   {
     key: "speak",
-    lead: "Говорим",
+    n: "03",
+    title: "Говорим",
     rest: "с первого занятия",
     text: "Грамматика приходит следом за речью, а не вместо неё. Каждое занятие — минимум половина времени вслух.",
   },
@@ -134,6 +138,7 @@ export const courses = [
     key: "zero",
     title: "С нуля",
     text: "Первые слова, звуки и фразы — без страха ошибиться.",
+    tone: "secondary" as const,
   },
   {
     key: "exam",
@@ -152,47 +157,49 @@ export const courses = [
   },
 ];
 
-/* ---------- Teachers (fictional) ---------- */
+/* ---------- Teachers (fictional) ----------
+   `size` drives the editorial composition: one large portrait, two medium,
+   one small — deliberately not a row of equal cards. */
 export const teachers = [
   {
     key: "a",
     name: "Мария",
     langs: "Español · Português",
     role: "Разговорные группы",
+    size: "lg" as const,
+    ratio: "4 / 5",
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=720&q=75",
-    ratio: "3 / 4",
-    offset: 0,
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=78",
   },
   {
     key: "b",
     name: "Тимур",
     langs: "English",
     role: "Английский для работы",
+    size: "md" as const,
+    ratio: "3 / 4",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=720&q=75",
-    ratio: "4 / 5",
-    offset: 56,
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=720&q=78",
   },
   {
     key: "c",
     name: "Клара",
     langs: "Deutsch",
     role: "С нуля и до B2",
+    size: "md" as const,
+    ratio: "1 / 1",
     image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=720&q=75",
-    ratio: "5 / 7",
-    offset: 20,
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=720&q=78",
   },
   {
     key: "d",
     name: "Люк",
     langs: "Français · Italiano",
     role: "Фонетика и произношение",
+    size: "sm" as const,
+    ratio: "4 / 5",
     image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=720&q=75",
-    ratio: "3 / 4",
-    offset: 88,
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=560&q=78",
   },
 ];
 
@@ -238,14 +245,4 @@ export const plans = [
       "Материалы студии",
     ],
   },
-];
-
-/* ---------- Final CTA: the greeting loop closes ---------- */
-export const invitations = [
-  "Начнём?",
-  "Shall we?",
-  "On commence ?",
-  "¿Empezamos?",
-  "Iniziamo?",
-  "Fangen wir an?",
 ];

@@ -14,16 +14,7 @@ export function Hero() {
   return (
     <section className="hero section" id="top">
       <div className="shell hero__inner">
-        <div className="hero__meta eyebrow">
-          <span>Lingo — студия языков</span>
-          <span className="hero__meta-langs" aria-hidden="true">
-            {greetings.map((g) => (
-              <span key={g.code} data-live={g.code === active.code}>
-                {g.code}
-              </span>
-            ))}
-          </span>
-        </div>
+        <p className="hero__kicker">LINGO — СТУДИЯ ЯЗЫКОВ</p>
 
         <div
           className="hero__greeting"
@@ -31,18 +22,21 @@ export function Hero() {
           onClick={advance}
         >
           <KineticWord
-            className="hero__kinetic"
+            className="hero__word"
             word={active.word}
             vocabulary={words}
           />
-          <p className="hero__native eyebrow" key={active.code}>
-            <b>{active.lang}</b>
-            <span>{active.code}</span>
+          <p className="hero__lang" key={active.code}>
+            <span className="hero__lang-dot" aria-hidden="true" />
+            {active.lang}
+            <span className="hero__lang-code">{active.code}</span>
           </p>
         </div>
 
         <h1 className="hero__title">
-          Говори на языке, <em>который тебе нужен.</em>
+          Говори на языке,
+          <br />
+          <em>который тебе нужен.</em>
         </h1>
 
         <div className="hero__foot">
@@ -58,7 +52,6 @@ export function Hero() {
 
         <LevelScale
           className="hero__scale"
-          progress={0.4}
           left="Начинаем там, где вы сейчас"
           right="Ведём до цели"
         />
