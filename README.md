@@ -1,5 +1,7 @@
 # LINGO — студия языков
 
+**Живая версия:** https://cofeechik.github.io/lingo-language-studio/
+
 Лендинг вымышленной языковой студии. Портфолио-проект.
 
 Арт-дирекция — **«Живой алфавит»**: сайт держится на кинетической типографике
@@ -24,6 +26,22 @@
 ```bash
 npm install
 npm run dev
+```
+
+Откроется на `http://localhost:5173/` — dev-сервер сам перебросит на
+`/lingo-language-studio/`. Этот путь задан в `vite.config.ts` как `base`,
+потому что сайт публикуется как GitHub project page; dev, `npm run preview`
+и продакшен-сборка используют один и тот же префикс.
+
+## Публикация
+
+`.github/workflows/deploy.yml` собирает проект и деплоит `dist` через
+официальные Pages-экшены при каждом push в `main`. В настройках репозитория
+источник Pages — **GitHub Actions** (не ветка).
+
+```bash
+npm run build     # tsc -b && vite build
+npm run preview   # проверить собранный dist локально
 ```
 
 ## Структура
