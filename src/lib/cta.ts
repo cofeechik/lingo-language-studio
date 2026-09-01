@@ -12,7 +12,8 @@ export function trialHref(
   if (context.course) params.set("course", context.course);
   if (context.tariff) params.set("tariff", context.tariff);
   const query = params.toString();
-  return `${BASE}trial${query ? `?${query}` : ""}`;
+  // trailing slash: GitHub Pages serves <route>/index.html with a 200
+  return `${BASE}trial/${query ? `?${query}` : ""}`;
 }
 
 export const HOME_HREF = BASE;
