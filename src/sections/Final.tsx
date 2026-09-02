@@ -22,7 +22,7 @@ export function Final() {
       <div className="final__footer">
         <div className="shell final__footer-inner">
           <span className="final__mark">LINGO.</span>
-          <span>Концепт-проект для портфолио — вымышленный бренд</span>
+          <span>Онлайн и в студии — шесть языков</span>
           <span>2026</span>
         </div>
       </div>

@@ -53,6 +53,31 @@
   letter-spacing: var(--ls-display);
 }
 
+/* The lead direction takes a quarter of the grid and carries the weight
+   the other five share between them. */
+.cell--lead {
+  grid-column: span 2;
+  grid-row: span 2;
+  gap: var(--sp-5);
+  /* twice the height of its neighbours, so the content sits optically
+     centred instead of stranding the arrow at the bottom edge */
+  justify-content: center;
+}
+
+.cell--lead .cell__go {
+  margin-top: var(--sp-2);
+}
+
+.cell--lead .cell__title {
+  font-size: clamp(2rem, 4vw, 3.75rem);
+}
+
+.cell--lead .cell__text {
+  font-size: var(--fs-lead);
+  line-height: 1.45;
+  max-width: 34ch;
+}
+
 .cell__text {
   font-size: var(--fs-sm);
   line-height: 1.55;
@@ -99,11 +124,20 @@
   .courses__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .cell--lead {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
 }
 
 @media (max-width: 560px) {
   .courses__grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cell--lead {
+    grid-column: span 1;
   }
 
   .cell {

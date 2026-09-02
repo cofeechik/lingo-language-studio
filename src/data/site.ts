@@ -136,6 +136,7 @@ export const courses = [
     key: "speak",
     title: "Разговорный",
     text: "Снять барьер и начать говорить без пауз на перевод в голове.",
+    lead: true,
   },
   {
     key: "work",

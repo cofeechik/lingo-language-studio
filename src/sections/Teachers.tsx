@@ -40,11 +40,6 @@ export function Teachers() {
             </article>
           ))}
         </div>
-
-        <p className="teachers__note">
-          Lingo — концепт-бренд, созданный для портфолио. Имена и фотографии на
-          этой странице — часть дизайн-макета, а не реальная команда.
-        </p>
       </div>
     </section>
   );

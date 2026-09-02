@@ -21,7 +21,13 @@ export function Courses() {
         <div className="courses__grid">
           {courses.map((c) => (
             <article
-              className={`cell${c.tone === "secondary" ? " cell--secondary" : ""}`}
+              className={[
+                "cell",
+                c.lead ? "cell--lead" : "",
+                c.tone === "secondary" ? "cell--secondary" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
               key={c.key}
             >
               <h3 className="cell__title">{c.title}</h3>
