@@ -11,7 +11,6 @@ import {
 import "./Trial.css";
 
 type Answers = Partial<Record<FieldKey, string>>;
-type ContactKind = "telegram" | "phone";
 
 /** Where the collected application text should be pasted. */
 const STUDIO_TELEGRAM_URL = "https://t.me/COFEECHIK";
@@ -32,7 +31,6 @@ export function Trial({ params }: { params: URLSearchParams }) {
 
   const [answers, setAnswers] = useState<Answers>(prefill.answers);
   const [index, setIndex] = useState(prefill.startAt);
-  const [contactKind, setContactKind] = useState<ContactKind>("telegram");
   const [sent, setSent] = useState(false);
   const [draft, setDraft] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -177,37 +175,6 @@ export function Trial({ params }: { params: URLSearchParams }) {
                   value={draft}
                   placeholder={step.placeholder}
                   autoComplete="given-name"
-                  onChange={(e) => setDraft(e.target.value)}
-                  onKeyDown={(e) =>
-                    e.key === "Enter" && canContinue && goNext(draft.trim())
-                  }
-                />
-              </div>
-            )}
-
-            {step.kind === "contact" && (
-              <div className="trial__field">
-                <div className="trial__switch">
-                  {(["telegram", "phone"] as ContactKind[]).map((kind) => (
-                    <button
-                      type="button"
-                      key={kind}
-                      aria-pressed={contactKind === kind}
-                      onClick={() => setContactKind(kind)}
-                    >
-                      {kind === "telegram" ? "Telegram" : "Телефон"}
-                    </button>
-                  ))}
-                </div>
-                <input
-                  className="trial__input"
-                  ref={inputRef}
-                  type={contactKind === "phone" ? "tel" : "text"}
-                  inputMode={contactKind === "phone" ? "tel" : "text"}
-                  value={draft}
-                  placeholder={
-                    contactKind === "phone" ? "+7 900 000-00-00" : "@username"
-                  }
                   onChange={(e) => setDraft(e.target.value)}
                   onKeyDown={(e) =>
                     e.key === "Enter" && canContinue && goNext(draft.trim())

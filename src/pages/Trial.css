@@ -205,29 +205,6 @@
   border-bottom-color: var(--primary);
 }
 
-/* Telegram / phone switch */
-.trial__switch {
-  display: flex;
-  gap: 1px;
-  background: var(--hair);
-  border: 1px solid var(--hair);
-  width: fit-content;
-  margin-bottom: var(--sp-5);
-}
-
-.trial__switch button {
-  background: var(--paper);
-  padding: var(--sp-3) var(--sp-5);
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  transition: background var(--t-fast) var(--ease),
-    color var(--t-fast) var(--ease);
-}
-
-.trial__switch button[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--paper);
-}
 
 /* ---------- Step controls ---------- */
 .trial__controls {

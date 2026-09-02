@@ -1,5 +1,5 @@
 /**
- * The seven-step trial-lesson form: one question per screen.
+ * The six-step trial-lesson form: one question per screen.
  * LINGO is a fictional brand — nothing here is sent to a real school.
  */
 
@@ -19,8 +19,7 @@ export type Step =
       placeholder: string;
       hint?: string;
     }
-  | { key: FieldKey; kind: "choice"; question: string; options: Choice[] }
-  | { key: "contact"; kind: "contact"; question: string; hint?: string };
+  | { key: FieldKey; kind: "choice"; question: string; options: Choice[] };
 
 export type FieldKey =
   | "name"
@@ -28,8 +27,7 @@ export type FieldKey =
   | "level"
   | "format"
   | "goal"
-  | "time"
-  | "contact";
+  | "time";
 
 export const steps: Step[] = [
   {
@@ -100,12 +98,6 @@ export const steps: Step[] = [
       { value: "evening", label: "Вечер" },
     ],
   },
-  {
-    key: "contact",
-    kind: "contact",
-    question: "Куда прислать время пробного урока?",
-    hint: "Заявка никуда не отправляется автоматически — вы сами выберете чат в Telegram.",
-  },
 ];
 
 /** Human-readable label for each answer line in the summary. */
@@ -116,7 +108,6 @@ export const fieldLabels: Record<FieldKey | "tariff", string> = {
   format: "Формат",
   goal: "Цель",
   time: "Время",
-  contact: "Контакт",
   tariff: "Тариф",
 };
 
