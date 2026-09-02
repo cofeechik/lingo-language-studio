@@ -13,8 +13,8 @@ import "./Trial.css";
 type Answers = Partial<Record<FieldKey, string>>;
 type ContactKind = "telegram" | "phone";
 
-/** Where the finished application would go. Placeholder for a concept brand. */
-const STUDIO_TELEGRAM = "lingo_studio";
+/** Where the collected application text should be pasted. */
+const STUDIO_TELEGRAM_URL = "https://t.me/COFEECHIK";
 
 function optionsOf(step: Step) {
   return step.kind === "choice" ? step.options : [];
@@ -79,11 +79,44 @@ export function Trial({ params }: { params: URLSearchParams }) {
     [lines],
   );
 
-  /* No backend and no bot API: Telegram's own share sheet opens with the
-     text prefilled and the person picks the chat themselves. */
-  const shareHref = `https://t.me/share/url?url=${encodeURIComponent(
-    `https://t.me/${STUDIO_TELEGRAM}`,
-  )}&text=${encodeURIComponent(message)}`;
+  const [copyFailed, setCopyFailed] = useState(false);
+
+  /* No backend and no bot API: copy the finished application text to the
+     clipboard, then open the studio's Telegram — the person pastes it in
+     themselves. `execCommand` is the fallback for browsers or contexts
+     (non-HTTPS, older WebViews) where the async Clipboard API is missing. */
+  const copyMessage = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(message);
+        return true;
+      }
+    } catch {
+      /* fall through to the legacy path below */
+    }
+    const area = document.createElement("textarea");
+    area.value = message;
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    let ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch {
+      ok = false;
+    }
+    document.body.removeChild(area);
+    return ok;
+  };
+
+  const handleSend = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    const copied = await copyMessage();
+    setCopyFailed(!copied);
+    setSent(true);
+    window.open(STUDIO_TELEGRAM_URL, "_blank", "noopener,noreferrer");
+  };
 
   const progress = Math.min(index, steps.length) / steps.length;
   const canContinue = step?.kind === "choice" || draft.trim().length > 0;
@@ -231,21 +264,21 @@ export function Trial({ params }: { params: URLSearchParams }) {
                 <Arrow />
                 Изменить ответы
               </button>
-              <Action
-                href={shareHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setSent(true)}
-              >
+              <Action href={STUDIO_TELEGRAM_URL} onClick={handleSend}>
                 Отправить анкету
               </Action>
             </div>
 
             {sent && (
               <p className="trial__sent">
-                Telegram открылся в новой вкладке — выберите чат и отправьте
-                собранное сообщение.
+                {copyFailed
+                  ? "Не удалось скопировать автоматически — текст заявки ниже, скопируйте его вручную и вставьте в Telegram."
+                  : "Анкета скопирована — вставьте её в Telegram."}
               </p>
+            )}
+
+            {sent && copyFailed && (
+              <pre className="trial__fallback">{message}</pre>
             )}
 
             <p className="trial__note">
